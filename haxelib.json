@@ -1,0 +1,13 @@
+{
+  "name": "blok.foundation",
+  "description": "Unstyled components for Blok",
+  "releasenote": "First release",
+  "version": "0.0.1-alpha.1",
+  "license": "MIT",
+  "classPath": "src",
+  "contributors": ["wartman"],
+  "dependencies": {
+    "blok.core": "0.7.0-alpha.1",
+    "kit": "0.0.0"
+  }
+}

@@ -1,0 +1,16 @@
+-cp src
+-cp examples
+
+-lib kit
+-lib blok.core
+-lib breeze
+
+--debug
+--dce full
+
+-D analyzer-optimize
+-D js-es=6
+
+-main Run
+
+-js dist/test.js
