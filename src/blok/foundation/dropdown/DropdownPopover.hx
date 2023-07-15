@@ -1,12 +1,11 @@
 package blok.foundation.dropdown;
 
-import blok.foundation.layer.Popover;
 import blok.foundation.core.*;
 import blok.ui.*;
 
 using blok.foundation.core.CoreModifiers;
 
-class DropdownPanel extends Component {
+class DropdownPopover extends Component {
   @:constant final onHide:()->Void;
   @:constant final gap:Int;
   @:constant final attachment:PositionedAttachment;

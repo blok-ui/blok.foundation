@@ -2,6 +2,7 @@ package blok.foundation.core;
 
 import blok.ui.*;
 
+// @todo: Is `core` the best place for this?
 class Positioned extends Component {
   @:constant final getTarget:()->Dynamic;
   @:constant final attachment:PositionedAttachment;

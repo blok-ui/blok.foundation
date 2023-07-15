@@ -16,21 +16,19 @@ class Dropdown extends Component {
       status: status,
       attachment: attachment,
       gap: gap
-    }), dropdown -> DropdownContainer.node({
-      children: [
-        DropdownToggle.node({ child: toggle(dropdown) }),
-        Scope.wrap(context -> switch dropdown.status() {
-          case Open:
-            DropdownPanel.node({
-              onHide: () -> dropdown.close(),
-              attachment: attachment,
-              gap: gap,
-              child: child(dropdown)
-            });
-          case Closed:
-            Placeholder.node();
-        })
-      ]
-    }));
+    }), dropdown -> Fragment.node(
+      DropdownToggle.node({ child: toggle(dropdown) }),
+      Scope.wrap(context -> switch dropdown.status() {
+        case Open:
+          DropdownPopover.node({
+            onHide: () -> dropdown.close(),
+            attachment: attachment,
+            gap: gap,
+            child: child(dropdown)
+          });
+        case Closed:
+          Placeholder.node();
+      })
+    ));
   }
 }

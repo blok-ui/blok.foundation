@@ -1,15 +1,14 @@
-package blok.foundation.layer;
+package blok.foundation.core;
 
 import blok.ui.*;
-import blok.foundation.core.*;
 
 using blok.adaptor.RealNodeHostTools;
-using blok.foundation.core.CoreModifiers;
 
+// @todo: Is `core` the best place for this?
 class Popover extends Component {
   @:constant final child:Child;
-  @:constant final gap:Int = 0;
   @:constant final attachment:PositionedAttachment;
+  @:constant final gap:Int = 0;
   @:constant final getTarget:Null<()->Dynamic> = null;
 
   function render() {

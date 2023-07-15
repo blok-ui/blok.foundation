@@ -2,7 +2,6 @@ package blok.foundation.accordion;
 
 import blok.context.Context;
 import blok.foundation.collapse.*;
-import blok.*;
 import blok.signal.*;
 
 enum abstract AccordionContextStatus(Int) {

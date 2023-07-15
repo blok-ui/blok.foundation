@@ -61,7 +61,7 @@ class ExampleDropdownItem extends Component {
       // Note: `DropdownItem` is just a marker component, used by the
       // Dropdown to figure out what items it can focus on when using
       // keyboard controls. For that reason, `DropdownItem` should
-      // be as close as possible to the actual `ObjectComponent`
+      // be as close as possible to the actual `RealNOdeComponent`
       // (`Html.a`, in this case -- note how we *didn't* put
       // it earlier, around `Html.li`), *and* that component
       // should create a focusable html element (that is, an

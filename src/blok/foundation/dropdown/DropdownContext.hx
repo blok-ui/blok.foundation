@@ -13,7 +13,7 @@ enum abstract DropdownStatus(Bool) {
 @:fallback(error('No DropdownContext found'))
 class DropdownContext extends Record implements Context {
   @:constant public final attachment:PositionedAttachment;
-  @:constant public final gap:Int;
+  @:constant public final gap:Int = 0;
   @:signal public final status:DropdownStatus;
 
   public function open() {
