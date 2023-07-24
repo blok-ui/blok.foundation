@@ -1,7 +1,7 @@
 package blok.foundation.collapse;
 
 import blok.foundation.accordion.AccordionContext;
-import blok.data.Record;
+import blok.data.Model;
 import blok.context.Context;
 
 enum abstract CollapseContextStatus(Bool) {
@@ -10,13 +10,21 @@ enum abstract CollapseContextStatus(Bool) {
 }
 
 @:fallback(new CollapseContext({ status: Expanded }))
-class CollapseContext extends Record implements Context {
-  @:constant final accordion:Maybe<AccordionContext> = None;
+class CollapseContext extends Model implements Context {
+  @:constant 
+  @:json(
+    from = if (value == null) None else Some(new AccordionContext(value)),
+    to = switch value {
+      case None: null;
+      case Some(value): { sticky: @:privateAccess value.sticky };
+    }
+  )
+  final accordion:Maybe<AccordionContext> = None;
   @:constant public final duration:Int = 200;
   @:signal public final status:CollapseContextStatus;
-  @:computed final init:Nothing = {
+
+  public function new() {
     accordion.ifExtract(Some(accordion), accordion.add(this));
-    Nothing;
   }
 
   public function toggle() {

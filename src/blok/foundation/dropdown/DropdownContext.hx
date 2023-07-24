@@ -1,7 +1,7 @@
 package blok.foundation.dropdown;
 
 import blok.context.Context;
-import blok.data.Record;
+import blok.data.Model;
 import blok.debug.Debug;
 import blok.foundation.core.PositionedAttachment;
 
@@ -11,7 +11,7 @@ enum abstract DropdownStatus(Bool) {
 }
 
 @:fallback(error('No DropdownContext found'))
-class DropdownContext extends Record implements Context {
+class DropdownContext extends Model implements Context {
   @:constant public final attachment:PositionedAttachment;
   @:constant public final gap:Int = 0;
   @:signal public final status:DropdownStatus;

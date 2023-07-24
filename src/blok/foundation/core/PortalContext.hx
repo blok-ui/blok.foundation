@@ -1,7 +1,7 @@
 package blok.foundation.core;
 
 import blok.context.Context;
-import blok.data.Record;
+import blok.data.Model;
 
 @:fallback(new PortalContext({ 
   target: #if (js && !nodejs) 
@@ -10,6 +10,6 @@ import blok.data.Record;
     new blok.html.server.Element({ id: 'portal' }) 
   #end 
 }))
-class PortalContext extends Record implements Context {
+class PortalContext extends Model implements Context {
   @:constant public final target:Dynamic;
 }
