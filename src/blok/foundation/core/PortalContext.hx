@@ -1,15 +1,22 @@
 package blok.foundation.core;
 
 import blok.context.Context;
-import blok.data.Model;
 
-@:fallback(new PortalContext({ 
-  target: #if (js && !nodejs) 
+@:fallback(new PortalContext(
+  #if (js && !nodejs) 
     js.Browser.document.getElementById('portal') 
   #else
     new blok.html.server.Element({ id: 'portal' }) 
   #end 
-}))
-class PortalContext extends Model implements Context {
-  @:constant public final target:Dynamic;
+))
+class PortalContext implements Context {
+  public final target:Dynamic;
+
+  public function new(target) {
+    this.target = target;
+  }
+
+  public function dispose() {
+    // noop
+  }
 }

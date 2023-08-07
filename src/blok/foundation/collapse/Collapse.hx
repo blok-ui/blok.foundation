@@ -11,11 +11,11 @@ class Collapse extends Component {
 
   function render() {
     return CollapseContext.provide(
-      () -> new CollapseContext({ 
-        accordion: AccordionContext.maybeFrom(this),
-        status: initialStatus,
-        duration: duration 
-      }),
+      () -> new CollapseContext(
+        initialStatus,
+        duration,
+        AccordionContext.maybeFrom(this)
+      ),
       _ -> child
     );
   }

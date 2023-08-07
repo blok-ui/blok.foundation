@@ -19,7 +19,7 @@ class Layer extends Component {
   @:constant final hideAnimation:Keyframes = DefaultHideAnimation;
   
   function render() {
-    return LayerContext.provide(() -> new LayerContext({}), layer -> {
+    return LayerContext.provide(() -> new LayerContext(), layer -> {
       var body = Html.div({
         className: className,
         style: 'position:fixed;inset:0px;overflow-x:hidden;overflow-y:scroll;',

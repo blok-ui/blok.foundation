@@ -1,24 +1,20 @@
 package blok.foundation.layer;
 
 import blok.context.Context;
-import blok.data.Model;
+import blok.signal.Signal;
 
 enum LayerContextStatus {
   Showing;
   Hiding;
 }
 
-@:fallback(new LayerContext({}))
-class LayerContext extends Model implements Context {
-  @:signal 
-  @:json(
-    from = value == true ? LayerContextStatus.Showing : LayerContextStatus.Hiding,
-    to = switch value {
-      case Showing: true;
-      case Hiding: false;
-    }
-  )
-  public final status:LayerContextStatus = Showing;
+@:fallback(new LayerContext())
+class LayerContext implements Context {
+  public final status:Signal<LayerContextStatus>;
+
+  public function new(?status) {
+    this.status = new Signal(status ?? Showing);
+  }
 
   public function hide():Void {
     status.set(Hiding);
@@ -26,5 +22,9 @@ class LayerContext extends Model implements Context {
   
   public function show():Void {
     status.set(Showing);
+  }
+
+  public function dispose() {
+    status.dispose();
   }
 }

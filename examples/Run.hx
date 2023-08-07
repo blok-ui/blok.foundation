@@ -1,6 +1,6 @@
 import blok.foundation.core.PortalContext;
 import blok.html.Html;
-import blok.html.client.Client.mount;
+import blok.html.Client;
 import ex.AnimatedExample;
 import ex.CollapseExample;
 import ex.DropdownExample;
@@ -10,9 +10,9 @@ import js.Browser;
 function main() {
   mount(
     Browser.document.getElementById('root'),
-    () -> PortalContext.provide(() -> new PortalContext({
-      target: Browser.document.getElementById('portal')
-    }), _ -> Html.div({
+    () -> PortalContext.provide(() -> new PortalContext(
+      Browser.document.getElementById('portal')
+    ), _ -> Html.div({
       className: Breeze.compose(
         Flex.display(),
         Flex.direction('column'),
