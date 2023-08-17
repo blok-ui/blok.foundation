@@ -13,7 +13,7 @@ class AnimatedExample extends Component {
         Sizing.height('30px'),
         Sizing.width('30px')
       )
-    }).animateForever('auto', _ ->  [
+    }).withInfiniteAnimation('auto', _ ->  [
       { transform: 'rotate(0)' },
       { transform: 'rotate(360deg)' }
     ], { duration: 1000 });

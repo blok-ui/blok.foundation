@@ -5,6 +5,11 @@ import blok.ui.*;
 
 using blok.foundation.core.CoreModifiers;
 
+/**
+  This is the popover that is rendered when the Dropdown is 
+  activated. It will be displayed relative to the closest 
+  DropdownToggle based on the provided `gap` and `attachment`.
+**/
 class DropdownPopover extends Component {
   @:constant final onHide:()->Void;
   @:constant final gap:Int;

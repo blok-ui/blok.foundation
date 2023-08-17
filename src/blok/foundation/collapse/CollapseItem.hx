@@ -9,6 +9,7 @@ class CollapseItem extends Component {
   function render() {
     var collapse = CollapseContext.from(this);
     return Animated.node({
+      animateInitial: false,
       keyframes: collapse.status.map(status -> switch status {
         case Collapsed: new Keyframes('in', context -> [
           { height: getHeight(context), offset: 0 },

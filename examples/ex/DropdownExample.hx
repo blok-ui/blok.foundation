@@ -6,6 +6,8 @@ import blok.html.*;
 import blok.foundation.dropdown.*;
 import ex.Core;
 
+using blok.foundation.dropdown.DropdownModifiers;
+
 class DropdownExample extends Component {
   function render() {
     return Html.div({},
@@ -58,29 +60,27 @@ class ExampleDropdownItem extends Component {
 
   function render() {
     return Html.li({},
-      // Note: `DropdownItem` is just a marker component, used by the
+      // Note: `asDropdownItem` is used by the
       // Dropdown to figure out what items it can focus on when using
-      // keyboard controls. For that reason, `DropdownItem` should
-      // be as close as possible to the actual `RealNOdeComponent`
-      // (`Html.a`, in this case -- note how we *didn't* put
-      // it earlier, around `Html.li`), *and* that component
+      // keyboard controls. For that reason, `asDropdownItem` should
+      // be as close as possible to the actual `RealNodeComponent`
+      // (`Html.a`, in this case -- note how we *didn't* us
+      // it earlier, on `Html.li`), *and* that component
       // should create a focusable html element (that is, an
       // `<a>` element with a "href", a `<button>`, etc). Note that
       // the Dropdown will NOT be accessible if you don't 
-      // use DropdownItems.
-      DropdownItem.node({
-        child: Html.a({
-          onClick: e -> {
-            e.preventDefault();
-            // Note: Something like this is required to
-            // auto-close the dropdown when an option is 
-            // selected.
-            DropdownContext.from(this).close();
-            onClick(e);
-          },
-          href: '#'
-        }, child)
-      })
+      // use `asDropdownItem`.
+      Html.a({
+        onClick: e -> {
+          e.preventDefault();
+          // Note: Something like this is required to
+          // auto-close the dropdown when an option is 
+          // selected.
+          DropdownContext.from(this).close();
+          onClick(e);
+        },
+        href: '#'
+      }, child).asDropdownItem()
     );
   }
 }

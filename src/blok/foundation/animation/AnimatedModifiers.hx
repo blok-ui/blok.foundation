@@ -2,7 +2,7 @@ package blok.foundation.animation;
 
 import blok.ui.*;
 
-function animate(child:Child, id:String, factory, ?options:{
+function withAnimation(child:Child, id:String, factory, ?options:{
   ?easing:String,
   ?duration:Int
 }) {
@@ -14,7 +14,7 @@ function animate(child:Child, id:String, factory, ?options:{
   });
 }
 
-function animateForever(child:Child, id:String, factory, ?options:{
+function withInfiniteAnimation(child:Child, id:String, factory, ?options:{
   ?easing:String,
   ?duration:Int
 }) {

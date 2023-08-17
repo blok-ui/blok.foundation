@@ -6,7 +6,7 @@ import blok.context.Context;
   #if (js && !nodejs) 
     js.Browser.document.getElementById('portal') 
   #else
-    new blok.html.server.Element({ id: 'portal' }) 
+    new blok.html.server.Element('div', { id: 'portal' }) 
   #end 
 ))
 class PortalContext implements Context {
