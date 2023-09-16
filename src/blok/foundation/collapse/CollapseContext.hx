@@ -1,9 +1,8 @@
 package blok.foundation.collapse;
 
-import blok.signal.Signal;
-import blok.foundation.accordion.AccordionContext;
-import blok.data.Model;
 import blok.context.Context;
+import blok.foundation.accordion.AccordionContext;
+import blok.signal.Signal;
 
 enum abstract CollapseContextStatus(Bool) {
   final Collapsed = false;
@@ -14,14 +13,14 @@ enum abstract CollapseContextStatus(Bool) {
 class CollapseContext implements Context {
   public final duration:Int;
   public final status:Signal<CollapseContextStatus>;
-  
-  final accordion:Maybe<AccordionContext> = None;
+  final accordion:Null<AccordionContext>;
 
   public function new(status:CollapseContextStatus, ?duration:Int, ?accordion) {
     this.status = new Signal(status);
     this.duration = duration ?? 200;
-    this.accordion = accordion ?? None; 
-    this.accordion.ifExtract(Some(accordion), accordion.add(this));
+    this.accordion = accordion;
+
+    this.accordion?.add(this);
   }
 
   public function toggle() {
@@ -40,6 +39,6 @@ class CollapseContext implements Context {
   }
 
   public function dispose() {
-    accordion.ifExtract(Some(accordion), accordion.remove(this));
+    accordion?.remove(this);
   }
 }

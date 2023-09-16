@@ -18,6 +18,10 @@ class Positioned extends Component {
     var window = js.Browser.window;
     var el:js.html.Element = getRealNode();
     
+    // @todo: this happens too late in the process and will
+    // cause the element to get mounted without being `fixed` first.
+    //
+    // We may need to make a more custom component to handle this.
     el.style.position = 'fixed';
     el.style.zIndex = '9000'; // @todo: Figure out a universal zIndex api
 

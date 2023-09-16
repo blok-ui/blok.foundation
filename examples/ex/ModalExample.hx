@@ -19,7 +19,7 @@ class ModalExample extends Component {
         action: _ -> isOpen.set(true),
         label: 'Open Modal'
       }),
-      Scope.wrap(_ -> if (isOpen()) Modal.node({
+      Show.when(isOpen, () -> Modal.node({
         onHide: () -> isOpen.set(false),
         children: [
           Html.div({
@@ -30,7 +30,7 @@ class ModalExample extends Component {
             label: 'Ok'
           }))
         ]
-      }) else Placeholder.node())
+      }))
     );
   }
 }

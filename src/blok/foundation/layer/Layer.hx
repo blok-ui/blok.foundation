@@ -52,11 +52,3 @@ class Layer extends Component {
     });
   }
 }
-
-class LayerTarget extends Component {
-  @:constant final child:Child;
-
-  function render() {
-    return child;
-  }
-}

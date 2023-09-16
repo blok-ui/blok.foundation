@@ -14,7 +14,7 @@ class Collapse extends Component {
       () -> new CollapseContext(
         initialStatus,
         duration,
-        AccordionContext.maybeFrom(this)
+        AccordionContext.maybeFrom(this).unwrap()
       ),
       _ -> child
     );
