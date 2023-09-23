@@ -1,7 +1,8 @@
 import blok.foundation.core.PortalContext;
-import blok.html.Html;
 import blok.html.Client;
+import blok.html.Html;
 import ex.AnimatedExample;
+import ex.CarouselExample;
 import ex.CollapseExample;
 import ex.DropdownExample;
 import ex.ModalExample;
@@ -30,6 +31,7 @@ function main() {
         DropdownExample.node({}),
       ),
       CollapseExample.node({}),  
-      AnimatedExample.node({})
+      AnimatedExample.node({}),
+      CarouselExample.node({})
     )));
 }
