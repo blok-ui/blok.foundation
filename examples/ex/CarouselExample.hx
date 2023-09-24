@@ -14,23 +14,20 @@ class CarouselExample extends Component {
       ),
       items: [ 'foo', 'bar', 'bin', 'bax', 'bif', 'barf' ],
       initialIndex: 0,
-      slide: (item, _) -> Scope.wrap(context -> {
-        var carousel = CarouselContext.from(context);
-        return Html.div({
-          className: Breeze.compose(
-            Background.color('red', 500),
-            Border.style('solid'),
-            Border.width(5),
-            Border.color('white', 0),
-            Typography.textColor('white', 0),
-            Sizing.height(50),
-            Layout.position('relative'),
-            Layout.attach('top', 0),
-            Sizing.width('full')
-          ),
-          onClick: _ -> carousel.next()
-        }, item);
-      }),
+      slide: (item, carousel) -> Html.div({
+        className: Breeze.compose(
+          Background.color('red', 500),
+          Border.style('solid'),
+          Border.width(5),
+          Border.color('white', 0),
+          Typography.textColor('white', 0),
+          Sizing.height(50),
+          Layout.position('relative'),
+          Layout.attach('top', 0),
+          Sizing.width('full')
+        ),
+        onClick: _ -> carousel.next()
+      }, item),
       controls: carousel -> Html.div({},
         Button.node({
           action: e -> carousel.previous(),

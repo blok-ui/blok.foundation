@@ -17,14 +17,13 @@ class Carousel<T> extends Component {
         CarouselViewport.node({
           className: className,
           duration: duration,
-          direction: carousel.direction,
-          onTransitionComplete: () -> carousel.commit(),
-          children: carousel.slice.map(items -> [ for (position => item in items)
+          children: [ for (position => item in items)
             CarouselSlide.node({
-              child: item == null ? Placeholder.node() : slide(item, carousel),
-              position: position - 2
-            }, carousel.getIndex(item).unwrap()) 
-          ])
+              item: item,
+              renderSlide: slide,
+              position: position
+            }, position) 
+          ]
         }),
         controls != null ? controls(carousel) : null
       )
