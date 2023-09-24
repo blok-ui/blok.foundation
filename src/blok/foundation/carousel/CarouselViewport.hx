@@ -34,18 +34,13 @@ class CarouselViewport extends Component {
 
   function render() {
     var dir = direction();
-
     return Html.div({
       className: className,
       style: 'overflow:hidden'
     }, Animated.node({
       keyframes: new Keyframes('blok.foundation.carousel', context -> {
         var currentOffset = getOffset(0);
-        var nextOffset = switch dir {
-          case Pending: getOffset(0);
-          case Next: getOffset(1);
-          case Previous: getOffset(-1);
-        };
+        var nextOffset = getOffset(dir);
         return [
           { transform: 'translate3d(-${currentOffset}px, 0px, 0px)' },
           { transform: 'translate3d(-${nextOffset}px, 0px, 0px)' },
@@ -58,10 +53,10 @@ class CarouselViewport extends Component {
       },
       animateInitial: false,
       repeatCurrentAnimation: true,
-      duration: duration,
-      child: Scope.wrap(_ -> Html.div({
+      duration: if (dir == Pending) 0 else duration,
+      child: Html.div({
         style: 'display:flex;height:100%;width:100%;transform:translate3d(-${getOffset(0)}px, 0px, 0px)'
-      }, ...children()))
+      }, ...children())
     }));
   }
 }

@@ -14,7 +14,7 @@ class CarouselExample extends Component {
       ),
       items: [ 'foo', 'bar', 'bin', 'bax', 'bif', 'barf' ],
       initialIndex: 0,
-      slide: item -> Scope.wrap(context -> {
+      slide: (item, _) -> Scope.wrap(context -> {
         var carousel = CarouselContext.from(context);
         return Html.div({
           className: Breeze.compose(
