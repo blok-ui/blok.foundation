@@ -1,8 +1,8 @@
 package blok.foundation.collapse;
 
-import blok.ui.*;
-import blok.foundation.collapse.CollapseContext;
 import blok.foundation.accordion.AccordionContext;
+import blok.foundation.collapse.CollapseContext;
+import blok.ui.*;
 
 class Collapse extends Component {
   @:constant final child:Child;

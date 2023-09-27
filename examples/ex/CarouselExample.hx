@@ -1,9 +1,9 @@
 package ex;
 
-import ex.Core.Button;
+import blok.foundation.carousel.*;
 import blok.html.Html;
 import blok.ui.*;
-import blok.foundation.carousel.*;
+import ex.Core;
 
 class CarouselExample extends Component {
   function render() {

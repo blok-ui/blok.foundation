@@ -1,8 +1,8 @@
 package blok.foundation.carousel;
 
-import Blok.Signal;
-import blok.debug.Debug;
 import blok.context.Context;
+import blok.debug.Debug;
+import blok.signal.Signal;
 
 @:fallback(error('No CarouselContext found'))
 class CarouselContext<T> implements Context {

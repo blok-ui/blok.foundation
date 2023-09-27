@@ -17,7 +17,7 @@ class CarouselSlide<T> extends Component {
       if (pos.current - 1 == position || pos.current == position || pos.current + 1 == position) {
         renderSlide(item, carousel);
       } else {
-        position;
+        null;
       }
     }));
   }
