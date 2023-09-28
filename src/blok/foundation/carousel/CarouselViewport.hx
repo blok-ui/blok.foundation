@@ -21,6 +21,20 @@ class CarouselViewport extends Component {
       ?.offsetLeft
       ?? 0.0;
   }
+
+  function updateViewportTransform() {
+    findChildOfType(Animated, true).extract(Some(target));
+    var currentOffset = untrackValue(() -> getOffset(CarouselContext.from(this).getPosition().current));
+    target.getRealNode().as(js.html.Element).style.transform = 'translate3d(-${currentOffset}px, 0px, 0px)';
+  }
+
+  function setup() {
+    var window = js.Browser.window;
+    window.addEventListener('resize', updateViewportTransform);
+    addDisposable(() -> {
+      window.removeEventListener('resize', updateViewportTransform);
+    });
+  }
   #else
   function getOffset(_:Int) {
     return 0.0;
@@ -42,10 +56,13 @@ class CarouselViewport extends Component {
           { transform: 'translate3d(-${nextOffset}px, 0px, 0px)' },
         ];
       }),
-      onFinished: context -> {
-        var currentOffset = untrackValue(() -> getOffset(CarouselContext.from(this).getPosition().current));
-        context.getRealNode().as(js.html.Element).style.transform = 'translate3d(-${currentOffset}px, 0px, 0px)';
-      },
+      #if (js && !nodejs)
+      onFinished: _ -> updateViewportTransform(),
+      #end
+      // onFinished: context -> {
+      //   var currentOffset = untrackValue(() -> getOffset(CarouselContext.from(this).getPosition().current));
+      //   context.getRealNode().as(js.html.Element).style.transform = 'translate3d(-${currentOffset}px, 0px, 0px)';
+      // },
       animateInitial: false,
       repeatCurrentAnimation: true,
       duration: duration,
