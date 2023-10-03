@@ -47,6 +47,7 @@ class Modal extends Component {
         Flex.display(),
         Flex.alignItems('center'),
         Flex.justify('center'),
+        Layout.layer(2),
         Background.color('rgba(0,0,0,0.5)')
       ),
       hideOnEscape: hideOnEscape,

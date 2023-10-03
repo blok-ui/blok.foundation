@@ -23,9 +23,13 @@ class CarouselViewport extends Component {
   }
 
   function updateViewportTransform() {
-    findChildOfType(Animated, true).extract(Some(target));
-    var currentOffset = untrackValue(() -> getOffset(CarouselContext.from(this).getPosition().current));
-    target.getRealNode().as(js.html.Element).style.transform = 'translate3d(-${currentOffset}px, 0px, 0px)';
+    var carousel = CarouselContext.from(this);
+    var currentOffset = untrackValue(() -> getOffset(carousel.getPosition().current));
+    var target = findChildOfType(Animated, true)
+      .flatMap(component -> component.getRealNode().as(js.html.Element).toMaybe())
+      .orThrow('Could not find Animated child -- `updateViewportTransform` may have been called before the component rendered');
+    
+    target.style.transform = 'translate3d(-${currentOffset}px, 0px, 0px)';
   }
 
   function setup() {
@@ -42,15 +46,18 @@ class CarouselViewport extends Component {
   #end
 
   function render() {
-    var currentOffset = untrackValue(() -> getOffset(CarouselContext.from(this).getPosition().current));
+    var carousel = CarouselContext.from(this);
+    var currentOffset = untrackValue(() -> getOffset(carousel.getPosition().current));
+    
     return Html.div({
       className: className,
       style: 'overflow:hidden'
     }, Animated.node({
       keyframes: new Keyframes('blok.foundation.carousel', context -> {
-        var pos = CarouselContext.from(this).getPosition();
+        var pos = carousel.getPosition();
         var currentOffset = getOffset(pos.previous);
         var nextOffset = getOffset(pos.current);
+  
         return [
           { transform: 'translate3d(-${currentOffset}px, 0px, 0px)' },
           { transform: 'translate3d(-${nextOffset}px, 0px, 0px)' },
@@ -59,10 +66,6 @@ class CarouselViewport extends Component {
       #if (js && !nodejs)
       onFinished: _ -> updateViewportTransform(),
       #end
-      // onFinished: context -> {
-      //   var currentOffset = untrackValue(() -> getOffset(CarouselContext.from(this).getPosition().current));
-      //   context.getRealNode().as(js.html.Element).style.transform = 'translate3d(-${currentOffset}px, 0px, 0px)';
-      // },
       animateInitial: false,
       repeatCurrentAnimation: true,
       duration: duration,

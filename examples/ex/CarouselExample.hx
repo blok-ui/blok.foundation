@@ -14,21 +14,28 @@ class CarouselExample extends Component {
       ),
       items: [ 'foo', 'bar', 'bin', 'bax', 'bif', 'barf' ],
       initialIndex: 0,
-      slide: (item, carousel) -> Html.div({
-        className: Breeze.compose(
-          Background.color('red', 500),
-          Border.style('solid'),
-          Border.width(5),
-          Border.color('white', 0),
-          Typography.textColor('white', 0),
+      slide: (item, carousel) -> Panel.node({
+        styles: Breeze.compose(
           Sizing.height(50),
           Layout.position('relative'),
           Layout.attach('top', 0),
-          Sizing.width('full')
+          Layout.layer(1),
+          Sizing.width('full'),
+          Typography.fontSize('6xl'),
+          Typography.fontWeight('bold'),
+          Flex.display(),
+          Flex.alignItems('center'),
+          Flex.justify('center')
         ),
-        onClick: _ -> carousel.next()
-      }, item),
-      controls: carousel -> Html.div({},
+        onClick: _ -> carousel.next(),
+        children: item
+      }),
+      controls: carousel -> Html.div({
+        className: Breeze.compose(
+          Flex.display(),
+          Flex.gap(3)
+        )
+      },
         Button.node({
           action: e -> carousel.previous(),
           label: 'Previous'

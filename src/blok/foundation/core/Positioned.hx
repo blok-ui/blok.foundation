@@ -110,7 +110,6 @@ class Positioned extends Component {
     el.style.top = '${top}px';
     el.style.left = '${left}px';
   }
-  
   #end
 }
 
