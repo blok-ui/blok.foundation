@@ -2,7 +2,7 @@ package blok.foundation.carousel;
 
 import blok.foundation.animation.*;
 import blok.html.Html;
-import blok.signal.Graph.untrackValue;
+import blok.signal.Graph;
 import blok.ui.*;
 
 using Lambda;
