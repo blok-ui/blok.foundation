@@ -11,7 +11,7 @@ import blok.ui.*;
   the base Dropdown component will wrap its `toggle` for you.
 **/
 class DropdownToggle extends Component {
-  @:constant final child:Child;
+  @:children @:attribute final child:Child;
   
   function render() {
     return child;

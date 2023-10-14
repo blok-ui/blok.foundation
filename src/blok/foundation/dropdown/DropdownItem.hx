@@ -10,7 +10,7 @@ import blok.ui.*;
   `Html.a(...)` will work, as will `Html.button({...})` or `Html.input({...})`).
 **/
 class DropdownItem extends Component {
-  @:constant final child:Child;
+  @:children @:attribute final child:Child;
   
   function render() {
     return child;

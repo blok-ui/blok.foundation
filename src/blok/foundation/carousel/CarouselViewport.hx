@@ -8,9 +8,9 @@ import blok.ui.*;
 using Lambda;
 
 class CarouselViewport extends Component {
-  @:constant final children:Children;
-  @:constant final className:String = null;
-  @:constant final duration:Int = 200;
+  @:attribute final className:String = null;
+  @:attribute final duration:Int = 200;
+  @:children @:attribute final children:Children;
 
   #if (js && !nodejs)
   function getOffset(position:Int) {

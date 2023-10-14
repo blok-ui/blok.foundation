@@ -11,10 +11,10 @@ using blok.foundation.core.CoreModifiers;
   DropdownToggle based on the provided `gap` and `attachment`.
 **/
 class DropdownPopover extends Component {
-  @:constant final onHide:()->Void;
-  @:constant final gap:Int;
-  @:constant final attachment:PositionedAttachment;
-  @:constant final child:Child;
+  @:attribute final onHide:()->Void;
+  @:attribute final gap:Int;
+  @:attribute final attachment:PositionedAttachment;
+  @:children @:attribute final child:Child;
 
   function render() {
     return Popover.node({

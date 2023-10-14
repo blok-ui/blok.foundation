@@ -36,9 +36,9 @@ class ModalExample extends Component {
 }
 
 class Modal extends Component {
-  @:constant final onHide:()->Void;
-  @:constant final children:Children;
-  @:constant final hideOnEscape:Bool = true;
+  @:attribute final onHide:()->Void;
+  @:attribute final children:Children;
+  @:attribute final hideOnEscape:Bool = true;
 
   public function render():Child {
     var target = PortalContext.from(this).target;

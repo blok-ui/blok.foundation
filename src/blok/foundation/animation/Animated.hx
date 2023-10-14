@@ -13,15 +13,15 @@ using Reflect;
 
 class Animated extends Component {
   @:observable final keyframes:Keyframes;
-  @:constant final duration:Int;
-  @:constant final child:Child;
-  @:constant final animateInitial:Bool = true;
-  @:constant final repeatCurrentAnimation:Bool = false;
-  @:constant final infinite:Bool = false;
-  @:constant final easing:String = 'linear';
-  @:constant final onFinished:(context:Component)->Void = null;
-  @:constant final onDispose:(context:Component)->Void = null;
-
+  @:attribute final duration:Int;
+  @:attribute final animateInitial:Bool = true;
+  @:attribute final repeatCurrentAnimation:Bool = false;
+  @:attribute final infinite:Bool = false;
+  @:attribute final easing:String = 'linear';
+  @:attribute final onFinished:(context:Component)->Void = null;
+  @:attribute final onDispose:(context:Component)->Void = null;
+  @:children @:attribute final child:Child;
+  
   function render() {
     return child;
   }

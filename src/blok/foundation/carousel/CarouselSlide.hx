@@ -4,9 +4,9 @@ import blok.html.Html;
 import blok.ui.*;
 
 class CarouselSlide<T> extends Component {
-  @:constant public final position:Int;
-  @:constant final item:T;
-  @:constant final renderSlide:(item:T, carousel:CarouselContext<T>)->Child;
+  @:attribute public final position:Int;
+  @:attribute final item:T;
+  @:children @:attribute final renderSlide:(item:T, carousel:CarouselContext<T>)->Child;
 
   function render() {
     var carousel = CarouselContext.from(this);

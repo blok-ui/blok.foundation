@@ -1,7 +1,7 @@
 package blok.foundation.dropdown;
 
+import blok.signal.Signal;
 import blok.context.Context;
-import blok.data.Model;
 import blok.debug.Debug;
 import blok.foundation.core.PositionedAttachment;
 
@@ -11,10 +11,16 @@ enum abstract DropdownStatus(Bool) {
 }
 
 @:fallback(error('No DropdownContext found'))
-class DropdownContext extends Model implements Context {
-  @:constant public final attachment:PositionedAttachment;
-  @:constant public final gap:Int = 0;
-  @:signal public final status:DropdownStatus;
+class DropdownContext implements Context {
+  public final attachment:PositionedAttachment;
+  public final gap:Int;
+  public final status:Signal<DropdownStatus>;
+
+  public function new(attachment, status, ?gap) {
+    this.attachment = attachment;
+    this.status = status;
+    this.gap = gap ?? 0;
+  }
 
   public function open() {
     status.set(Open);
@@ -26,5 +32,9 @@ class DropdownContext extends Model implements Context {
 
   public function toggle() {
     status.update(status -> status == Open ? Closed : Open);
+  }
+
+  public function dispose() {
+    status.dispose();
   }
 }

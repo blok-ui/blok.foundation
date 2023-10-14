@@ -3,7 +3,7 @@ package blok.foundation.core;
 import blok.ui.*;
 
 class ScrollLocked extends Component {
-  @:constant final child:Child;
+  @:children @:attribute final child:Child;
 
   function render() {
     return child;

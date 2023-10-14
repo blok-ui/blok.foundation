@@ -4,7 +4,7 @@ import blok.foundation.animation.*;
 import blok.ui.*;
 
 class CollapseItem extends Component {
-  @:constant final child:Child;
+  @:children @:attribute final child:Child;
 
   function render() {
     var collapse = CollapseContext.from(this);

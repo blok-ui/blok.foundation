@@ -3,12 +3,12 @@ package blok.foundation.carousel;
 import blok.ui.*;
 
 class Carousel<T> extends Component {
-  @:constant final className:String = null;
-  @:constant final items:Array<T>;
-  @:constant final initialIndex:Int = 0;
-  @:constant final duration:Int = 200;
-  @:constant final slide:(item:T, carousel:CarouselContext<T>)->Child;
-  @:constant final controls:(carousel:CarouselContext<T>)->Child = null;
+  @:attribute final className:String = null;
+  @:attribute final items:Array<T>;
+  @:attribute final initialIndex:Int = 0;
+  @:attribute final duration:Int = 200;
+  @:attribute final slide:(item:T, carousel:CarouselContext<T>)->Child;
+  @:attribute final controls:(carousel:CarouselContext<T>)->Child = null;
 
   function render() {
     return CarouselContext.provide(

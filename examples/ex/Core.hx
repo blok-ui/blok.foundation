@@ -5,9 +5,9 @@ import blok.html.*;
 import blok.html.HtmlEvents;
 
 class Panel extends Component {
-  @:constant final styles:ClassName = null;
-  @:constant final children:Children;
-  @:constant final onClick:EventListener = null;
+  @:attribute final styles:ClassName = null;
+  @:attribute final children:Children;
+  @:attribute final onClick:EventListener = null;
 
   function render() {
     return Html.div({
@@ -28,9 +28,9 @@ enum ButtonPriority {
 }
 
 class Button extends Component {
-  @:constant final label:Child;
-  @:constant final priority:ButtonPriority = Normal;
-  @:constant final action:EventListener;
+  @:attribute final label:Child;
+  @:attribute final priority:ButtonPriority = Normal;
+  @:attribute final action:EventListener;
 
   function render() {
     return Html.button({

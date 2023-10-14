@@ -6,8 +6,8 @@ import blok.ui.*;
 using blok.foundation.keyboard.KeyboardModifiers;
 
 class LayerContainer extends Component {
-  @:constant final hideOnEscape:Bool;
-  @:constant final child:Child;
+  @:attribute final hideOnEscape:Bool;
+  @:children @:attribute final child:Child;
 
   function render() {
     return child.withKeyboardInputHandler((key, getModifierState) -> switch key {

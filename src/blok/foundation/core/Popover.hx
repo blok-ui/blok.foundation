@@ -6,10 +6,10 @@ using blok.adaptor.RealNodeHostTools;
 
 // @todo: Is `core` the best place for this?
 class Popover extends Component {
-  @:constant final child:Child;
-  @:constant final attachment:PositionedAttachment;
-  @:constant final gap:Int = 0;
-  @:constant final getTarget:Null<()->Dynamic> = null;
+  @:attribute final attachment:PositionedAttachment;
+  @:attribute final gap:Int = 0;
+  @:attribute final getTarget:Null<()->Dynamic> = null;
+  @:children @:attribute final child:Child;
 
   function render() {
     var target = PortalContext.from(this).target;

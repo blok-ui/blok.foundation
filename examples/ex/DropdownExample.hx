@@ -55,8 +55,8 @@ class DropdownExample extends Component {
 }
 
 class ExampleDropdownItem extends Component {
-  @:constant final child:Child;
-  @:constant final onClick:EventListener;
+  @:attribute final child:Child;
+  @:attribute final onClick:EventListener;
 
   function render() {
     return Html.li({},

@@ -22,7 +22,7 @@ class CollapseExample extends Component {
 }
 
 class ExampleCollapseHeader extends Component {
-  @:constant final child:Child;
+  @:attribute final child:Child;
 
   function render() {
     var collapse = CollapseContext.from(this);
@@ -44,7 +44,7 @@ class ExampleCollapseHeader extends Component {
 }
 
 class ExampleCollapseBody extends Component {
-  @:constant final children:Children;
+  @:attribute final children:Children;
 
   function render() {
     return CollapseItem.node({

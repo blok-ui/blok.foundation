@@ -4,10 +4,10 @@ import blok.ui.*;
 
 // @todo: Is `core` the best place for this?
 class Positioned extends Component {
-  @:constant final getTarget:()->Dynamic;
-  @:constant final attachment:PositionedAttachment;
-  @:constant final gap:Int = 0;
-  @:constant final child:Child;
+  @:attribute final getTarget:()->Dynamic;
+  @:attribute final attachment:PositionedAttachment;
+  @:attribute final gap:Int = 0;
+  @:children @:attribute final child:Child;
   
   function render() {
     return child;

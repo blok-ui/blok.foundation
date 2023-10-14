@@ -5,9 +5,9 @@ import blok.foundation.collapse.CollapseContext;
 import blok.ui.*;
 
 class Collapse extends Component {
-  @:constant final child:Child;
-  @:constant final initialStatus:CollapseContextStatus = Collapsed;
-  @:constant final duration:Int = 200;
+  @:attribute final initialStatus:CollapseContextStatus = Collapsed;
+  @:attribute final duration:Int = 200;
+  @:children @:attribute final child:Child;
 
   function render() {
     return CollapseContext.provide(
