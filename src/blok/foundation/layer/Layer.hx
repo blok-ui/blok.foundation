@@ -1,6 +1,5 @@
 package blok.foundation.layer;
 
-import blok.html.View;
 import blok.foundation.animation.*;
 import blok.html.Html;
 import blok.ui.*;
