@@ -30,7 +30,7 @@ class ExampleCollapseHeader extends Component {
       className: Typography.fontWeight('bold'),
       onClick: _ -> collapse.toggle(),
     },
-      // `collapse.status` is a State, so we can observe it
+      // `collapse.status` is a Signal, so we can observe it
       // for changes. In a real implementation, this might be
       // where you have a chevron icon rotate or otherwise
       // indicate a collapsed/expanded status.

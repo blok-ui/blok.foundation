@@ -14,6 +14,7 @@ class CarouselExample extends Component {
       ),
       items: [ 'foo', 'bar', 'bin', 'bax', 'bif', 'barf' ],
       initialIndex: 0,
+      onlyRenderActiveSlide: true,
       slide: (item, carousel) -> Panel.node({
         styles: Breeze.compose(
           Sizing.height(50),
