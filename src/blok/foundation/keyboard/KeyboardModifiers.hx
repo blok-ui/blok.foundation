@@ -5,11 +5,11 @@ import blok.ui.*;
 function withKeyboardInputHandler(
   child:Child,
   handler:(key:KeyType, getModifierState:(modifier:KeyModifier)->Bool)->Void,
-  ?preventDefault
+  ?options:{ preventDefault:Bool }
 ) {
   return KeyboardInput.node({
     child: child,
     handler: handler,
-    preventDefault: preventDefault ?? true
+    preventDefault: options?.preventDefault ?? true
   });
 }

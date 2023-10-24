@@ -10,11 +10,13 @@ class LayerContainer extends Component {
   @:children @:attribute final child:Child;
 
   function render() {
-    return child.withKeyboardInputHandler((key, getModifierState) -> switch key {
-      case Escape if (hideOnEscape):
+    if (hideOnEscape) return child.withKeyboardInputHandler((key, getModifierState) -> switch key {
+      case Escape:
         LayerContext.from(this).hide();
       default:
-    }, false);
+    }, { preventDefault: false });
+    
+    return child;
   }
 
   #if (js && !nodejs)

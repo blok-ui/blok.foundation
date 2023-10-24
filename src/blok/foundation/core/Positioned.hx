@@ -62,9 +62,9 @@ class Positioned extends Component {
       case MatchLeft:
         targetRect.left;
       case MatchRight:
-        (targetRect.right) - el.offsetWidth;
+        targetRect.right - el.offsetWidth;
       case Middle:
-        (targetRect.left)
+        targetRect.left
           + (target.offsetWidth / 2)
           - (el.offsetWidth / 2);
     }
@@ -75,7 +75,7 @@ class Positioned extends Component {
       case Top:
         0;
       case Bottom if (top > 0):
-        (targetRect.top) - el.offsetHeight;
+        targetRect.top - el.offsetHeight;
       case Bottom:
         0;
       case Middle if (top > 0):
@@ -87,11 +87,11 @@ class Positioned extends Component {
     if (overflowsHorizontal(left, el.offsetWidth)) {
       left = switch hAttachment {
         case Right | MatchRight:
-          (targetRect.right) - el.offsetWidth;
+          targetRect.right - el.offsetWidth;
         case Left | MatchLeft:
           0;
         case Middle if (left > 0):
-          (targetRect.right) - el.offsetWidth;
+          targetRect.right - el.offsetWidth;
         case Middle:
           0;
       }
