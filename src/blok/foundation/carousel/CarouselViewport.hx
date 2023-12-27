@@ -14,7 +14,7 @@ class CarouselViewport extends Component {
 
   #if (js && !nodejs)
   function getOffset(position:Int) {
-    var slides = filterChildrenOfType(CarouselSlide, true);
+    var slides = filterChildrenOfType(CarouselItem, true);
     return slides.find(slide -> slide.position == position)
       ?.getRealNode()
       ?.as(js.html.Element)

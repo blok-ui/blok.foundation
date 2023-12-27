@@ -39,6 +39,7 @@ class CollapseContext implements Context {
   }
 
   public function dispose() {
+    status.dispose();
     accordion?.remove(this);
   }
 }
