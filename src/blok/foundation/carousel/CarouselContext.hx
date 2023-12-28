@@ -29,7 +29,15 @@ class CarouselContext implements Context {
       current: index(),
       previous: previousIndex
     };
-  } 
+  }
+
+  public function hasNext() {
+    return index.peek() < (count - 1);
+  }
+
+  public function hasPrevious() {
+    return index.peek() > 0;
+  }
 
   public function next() {
     index.update(index -> {
