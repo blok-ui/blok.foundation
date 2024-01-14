@@ -18,6 +18,7 @@ class Animated extends Component {
   @:attribute final repeatCurrentAnimation:Bool = false;
   @:attribute final infinite:Bool = false;
   @:attribute final easing:String = 'linear';
+  @:attribute final onStart:(context:Component)->Void = null;
   @:attribute final onFinished:(context:Component)->Void = null;
   @:attribute final onDispose:(context:Component)->Void = null;
   @:children @:attribute final child:Child;
@@ -72,6 +73,8 @@ class Animated extends Component {
       currentAnimation = null;
       if (this.onFinished != null) this.onFinished(this);
     }
+
+    if (onStart != null) onStart(this);
 
     currentAnimation = registerAnimations(el, keyframes.create(this), {
       duration: duration,

@@ -17,7 +17,21 @@ class Layer extends Component {
   @:attribute final transitionSpeed:Int = 150;
   @:attribute final showAnimation:Keyframes = DefaultShowAnimation;
   @:attribute final hideAnimation:Keyframes = DefaultHideAnimation;
-  
+
+  function showRealNode() {
+    #if (js && !nodejs)
+    var el:js.html.Element = getRealNode();
+    el.style.visibility = 'visible';
+    #end
+  }
+
+  function hideRealNode() {
+    #if (js && !nodejs)
+    var el:js.html.Element = getRealNode();
+    el.style.visibility = 'hidden';
+    #end
+  }
+
   function render() {
     return LayerContext.provide(() -> new LayerContext(), layer -> {
       var body = Html.div({
@@ -30,19 +44,27 @@ class Layer extends Component {
       }, LayerTarget.node({ child: child }));
       var animation = Animated.node({
         keyframes: layer.status.map(status -> switch status { 
-          case Showing: 
+          case Showing:
             showAnimation;
           case Hiding: 
             hideAnimation;
         }),
         duration: transitionSpeed,
+        onStart: _ -> switch layer.status.peek() {
+          case Showing:
+            showRealNode();
+          case Hiding:
+        },
         onFinished: _ -> switch layer.status.peek() {
           case Showing:
             if (onShow != null) onShow();
           case Hiding:
+            hideRealNode();
             if (onHide != null) onHide();
         },
-        onDispose: _ -> if (onHide != null) onHide(),
+        onDispose: _ -> {
+          if (onHide != null) onHide();
+        },
         child: body
       });
       return LayerContainer.node({

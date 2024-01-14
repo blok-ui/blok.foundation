@@ -30,23 +30,36 @@ class CarouselViewport extends Component {
       .orThrow('Could not find Animated child -- `getTarget` may have been called before the component rendered');
   }
 
+  function isValidInteraction(e:js.html.Event) {
+    return switch Std.downcast(e, js.html.TouchEvent) {
+      case null: 
+        var mouse = e.as(js.html.MouseEvent);
+        mouse.buttons == 1 && mouse.button == 0;
+      case touch:
+        // @todo: not sure if the following is enough
+        touch.touches.length == 1;
+    }
+  }
+
   function getInteractionPosition(e:js.html.Event) {
     return switch Std.downcast(e, js.html.TouchEvent) {
-      case null: e.as(js.html.MouseEvent).clientX;
-      case touch: touch.changedTouches.item(0).clientX;
+      case null: 
+        e.as(js.html.MouseEvent).clientX;
+      case touch: 
+        touch.changedTouches.item(0).clientX;
     }
   }
 
   function onDragStart(e:js.html.Event) {
-    // @todo: check if the event is a left mouse click or a one-finger
-    // touch, and only activate then.
-    //
     // @todo: Potentially check the event target and don't drag if it's 
     // text.
 
+    if (!isValidInteraction(e)) return;
+    
     e.preventDefault();
     startDrag = getInteractionPosition(e);
     previousDrag = startDrag;
+
     js.Browser.window.addEventListener('mousemove', onDragUpdate);
     js.Browser.window.addEventListener('mouseup', onDragEnd);
     js.Browser.window.addEventListener('touchmove', onDragUpdate);
@@ -54,8 +67,7 @@ class CarouselViewport extends Component {
   }
 
   function onDragUpdate(e:js.html.Event) {
-    // @todo: If we're dealing with touch events make sure we're not
-    // reacting to another finger on the screen.
+    if (!isValidInteraction(e)) return;
 
     var context = CarouselContext.from(this);
     var currentDrag = getInteractionPosition(e);
@@ -131,9 +143,13 @@ class CarouselViewport extends Component {
 
   function setup() {
     var window = js.Browser.window;
-    window.addEventListener('resize', updateViewportTransform);
+    window.addEventListener('resize', resetViewportTransform);
     addDisposable(() -> {
-      window.removeEventListener('resize', updateViewportTransform);
+      window.removeEventListener('resize', resetViewportTransform);
+      window.removeEventListener('mousemove', onDragUpdate);
+      window.removeEventListener('mouseup', onDragEnd);
+      window.removeEventListener('touchmove', onDragUpdate);
+      window.removeEventListener('touchend', onDragEnd);
     });
   }
   #else
@@ -173,6 +189,7 @@ class CarouselViewport extends Component {
       #end
       animateInitial: false,
       repeatCurrentAnimation: true,
+      // @todo: Duration should be based off the width of the screen.
       duration: duration,
       child: Html.div({
         style: 'display:flex;height:100%;width:100%;transform:translate3d(-${currentOffset}px, 0px, 0px)'
