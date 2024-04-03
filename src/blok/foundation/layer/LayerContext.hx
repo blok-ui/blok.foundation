@@ -25,6 +25,6 @@ class LayerContext implements Context {
   }
 
   public function dispose() {
-    status.dispose();
+    // status.dispose();
   }
 }

@@ -45,7 +45,7 @@ class CarouselExample extends Component {
             Flex.alignItems('center'),
             Flex.justify('center')
           ),
-          children: [ 'End' ]
+          children: 'End'
         })
       ]),
       controls: carousel -> Html.div({

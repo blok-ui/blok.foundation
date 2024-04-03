@@ -22,7 +22,7 @@ class CollapseItem extends Component {
       }),
       onFinished: context -> {
         #if (js && !nodejs)
-        var el:js.html.Element = getRealNode();
+        var el:js.html.Element = getPrimitive();
         switch collapse.status.peek() {
           case Collapsed: el.style.height = '0';
           case Expanded: el.style.height = 'auto';
@@ -35,9 +35,9 @@ class CollapseItem extends Component {
   }
 }
 
-private function getHeight(context:ComponentBase) {
+private function getHeight(context:View) {
   #if (js && !nodejs)
-  var el:js.html.Element = context.getRealNode();
+  var el:js.html.Element = context.getPrimitive();
   return el.scrollHeight + 'px';
   #else
   return 'auto';

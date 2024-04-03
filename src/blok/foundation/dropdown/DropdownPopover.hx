@@ -22,7 +22,7 @@ class DropdownPopover extends Component {
         .orThrow('No Dropdown')
         .findChildOfType(DropdownToggle, true)
         .orThrow('No dropdown toggle')
-        .getRealNode(),
+        .getPrimitive(),
       gap: gap,
       attachment: attachment,
       child: child
@@ -68,7 +68,7 @@ class DropdownPopover extends Component {
   function maybeFocusFirst() {
     switch getNextFocusedChild(1) {
       case Some(item):
-        var el:js.html.Element = item.getRealNode();
+        var el:js.html.Element = item.getPrimitive();
         FocusContext.from(this).focus(el);
       case None:
     }
@@ -78,7 +78,7 @@ class DropdownPopover extends Component {
     e.preventDefault();
     switch getNextFocusedChild(1) {
       case Some(item): 
-        (item.getRealNode():js.html.Element).focus();
+        (item.getPrimitive():js.html.Element).focus();
       case None if (hideIfLast): 
         hide(e);
       case None:
@@ -89,7 +89,7 @@ class DropdownPopover extends Component {
     e.preventDefault();
     switch getNextFocusedChild(-1) {
       case Some(item): 
-        (item.getRealNode():js.html.Element).focus();
+        (item.getPrimitive():js.html.Element).focus();
       case None if (hideIfFirst): 
         hide(e);
       case None:

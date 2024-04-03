@@ -35,6 +35,6 @@ class DropdownContext implements Context {
   }
 
   public function dispose() {
-    status.dispose();
+    // status.dispose();
   }
 }

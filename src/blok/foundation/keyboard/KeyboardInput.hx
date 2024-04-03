@@ -14,7 +14,7 @@ class KeyboardInput extends Component {
       handler(e.key, (key:KeyModifier) -> e.getModifierState(key));
     }
     
-    var el:js.html.Element = getRealNode();
+    var el:js.html.Element = getPrimitive();
     var document = el.ownerDocument;
     document.addEventListener('keydown', listener);
     addDisposable(() -> document.removeEventListener('keydown', listener));

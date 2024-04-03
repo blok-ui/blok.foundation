@@ -58,6 +58,6 @@ class CarouselContext implements Context {
   }
   
   public function dispose() {
-    index.dispose();
+    // index.dispose();
   }
 }

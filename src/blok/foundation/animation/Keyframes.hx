@@ -1,13 +1,13 @@
 package blok.foundation.animation;
 
-import blok.ui.ComponentBase;
+import blok.ui.View;
 
 using Lambda;
 using Reflect;
 
 class Keyframes {
   public final id:String;
-  public final factory:(context:ComponentBase) -> Array<{}>;
+  public final factory:(context:View) -> Array<{}>;
 
   public function new(id, factory) {
     this.id = id;

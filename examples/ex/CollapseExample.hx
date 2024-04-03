@@ -13,7 +13,7 @@ class CollapseExample extends Component {
         children: [
           ExampleCollapseHeader.node({ child: 'Collapse' }),
           ExampleCollapseBody.node({
-            children: Html.p({}, 'Some stuff')
+            children: Html.p().child('Some stuff').node()
           })
         ]
       })

@@ -2,7 +2,7 @@ package blok.foundation.carousel;
 
 import blok.foundation.animation.*;
 import blok.html.Html;
-import blok.signal.Graph;
+import blok.signal.*;
 import blok.ui.*;
 
 using Lambda;
@@ -26,7 +26,7 @@ class CarouselViewport extends Component {
 
   function getTarget() {
     return findChildOfType(Animated, true)
-      .flatMap(component -> component.getRealNode().as(js.html.Element).toMaybe())
+      .flatMap(component -> component.getPrimitive().as(js.html.Element).toMaybe())
       .orThrow('Could not find Animated child -- `getTarget` may have been called before the component rendered');
   }
 
@@ -119,13 +119,13 @@ class CarouselViewport extends Component {
 
   function getCurrentPosition() {
     var carousel = CarouselContext.from(this);
-    return untrackValue(() -> carousel.getPosition().current);
+    return Runtime.current().untrack(() -> carousel.getPosition().current);
   }
 
   function getOffset(position:Int) {
     var slides = filterChildrenOfType(CarouselItem, true);
     return slides.find(slide -> slide.position == position)
-      ?.getRealNode()
+      ?.getPrimitive()
       ?.as(js.html.Element)
       ?.offsetLeft
       ?? 0.0;
@@ -160,7 +160,7 @@ class CarouselViewport extends Component {
 
   function render() {
     var carousel = CarouselContext.from(this);
-    var currentOffset = untrackValue(() -> getOffset(carousel.getPosition().current));
+    var currentOffset = Runtime.current().untrack(() -> getOffset(carousel.getPosition().current));
     
     return Html.div({
       #if (js && !nodejs)

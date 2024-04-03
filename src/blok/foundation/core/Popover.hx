@@ -2,7 +2,7 @@ package blok.foundation.core;
 
 import blok.ui.*;
 
-using blok.adaptor.RealNodeHostTools;
+using blok.adaptor.PrimitiveHostTools;
 
 // @todo: Is `core` the best place for this?
 class Popover extends Component {
@@ -14,7 +14,7 @@ class Popover extends Component {
   function render() {
     var target = PortalContext.from(this).target;
     return Portal.wrap(target, () -> Positioned.node({
-      getTarget: getTarget ?? () -> this.findNearestRealNode(),
+      getTarget: getTarget ?? () -> this.findNearestPrimitive(),
       gap: gap,
       attachment: attachment,
       child: child

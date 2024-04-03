@@ -52,7 +52,7 @@ class Animated extends Component {
       default:
     }
 
-    var el:Element = getRealNode();
+    var el:Element = getPrimitive();
     var duration = if (first && !animateInitial) 0 else duration;
     var keyframes = keyframes();
 
