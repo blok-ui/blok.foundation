@@ -1,5 +1,6 @@
 package blok.foundation.layer;
 
+import blok.context.Provider;
 import blok.foundation.animation.*;
 import blok.html.Html;
 import blok.ui.*;
@@ -32,45 +33,49 @@ class Layer extends Component {
     #end
   }
 
-  function render() {
-    return LayerContext.provide(() -> new LayerContext(), layer -> {
-      var body = Html.div({
-        className: className,
-        style: 'position:fixed;inset:0px;overflow-x:hidden;overflow-y:scroll;',
-        onClick: e -> if (hideOnClick) {
-          e.preventDefault();
-          layer.hide();
-        }
-      }, LayerTarget.node({ child: child }));
-      var animation = Animated.node({
-        keyframes: layer.status.map(status -> switch status { 
-          case Showing:
-            showAnimation;
-          case Hiding: 
-            hideAnimation;
-        }),
-        duration: transitionSpeed,
-        onStart: _ -> switch layer.status.peek() {
-          case Showing:
-            showRealNode();
-          case Hiding:
-        },
-        onFinished: _ -> switch layer.status.peek() {
-          case Showing:
-            if (onShow != null) onShow();
-          case Hiding:
-            hideRealNode();
+  function render():Child {
+    return Provider
+      .provide(() -> new LayerContext())
+      .child(context -> {
+        var layer = LayerContext.from(context);
+        var body = Html.div({
+          className: className,
+          style: 'position:fixed;inset:0px;overflow-x:hidden;overflow-y:scroll;',
+          onClick: e -> if (hideOnClick) {
+            e.preventDefault();
+            layer.hide();
+          }
+        }, LayerTarget.node({ child: child }));
+        var animation = Animated.node({
+          keyframes: layer.status.map(status -> switch status { 
+            case Showing:
+              showAnimation;
+            case Hiding: 
+              hideAnimation;
+          }),
+          duration: transitionSpeed,
+          onStart: _ -> switch layer.status.peek() {
+            case Showing:
+              showRealNode();
+            case Hiding:
+          },
+          onFinished: _ -> switch layer.status.peek() {
+            case Showing:
+              if (onShow != null) onShow();
+            case Hiding:
+              hideRealNode();
+              if (onHide != null) onHide();
+          },
+          onDispose: _ -> {
             if (onHide != null) onHide();
-        },
-        onDispose: _ -> {
-          if (onHide != null) onHide();
-        },
-        child: body
+          },
+          child: body
+        });
+
+        return LayerContainer.node({
+          hideOnEscape: hideOnEscape,
+          child: animation
+        });
       });
-      return LayerContainer.node({
-        hideOnEscape: hideOnEscape,
-        child: animation
-      });
-    });
   }
 }

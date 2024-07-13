@@ -1,5 +1,6 @@
 package blok.foundation.collapse;
 
+import blok.context.Provider;
 import blok.foundation.accordion.AccordionContext;
 import blok.foundation.collapse.CollapseContext;
 import blok.ui.*;
@@ -9,14 +10,13 @@ class Collapse extends Component {
   @:attribute final duration:Int = 200;
   @:children @:attribute final child:Child;
 
-  function render() {
-    return CollapseContext.provide(
-      () -> new CollapseContext(
+  function render():Child {
+    return Provider
+      .provide(() -> new CollapseContext(
         initialStatus,
         duration,
         AccordionContext.maybeFrom(this).unwrap()
-      ),
-      _ -> child
-    );
+      ))
+      .child(_ -> child);
   }
 }

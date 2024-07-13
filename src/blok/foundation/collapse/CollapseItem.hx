@@ -5,21 +5,22 @@ import blok.ui.*;
 
 class CollapseItem extends Component {
   @:children @:attribute final child:Child;
+  @:computed final keyframes:Keyframes = switch CollapseContext.from(this).status() {
+    case Collapsed: new Keyframes('in', context -> [
+      { height: getHeight(context), offset: 0 },
+      { height: 0, offset: 1 }
+    ]);
+    case Expanded: new Keyframes('out', context -> [
+      { height: 0, offset: 0 },
+      { height: getHeight(context), offset: 1 }
+    ]);
+  }
 
   function render() {
     var collapse = CollapseContext.from(this);
     return Animated.node({
       animateInitial: false,
-      keyframes: collapse.status.map(status -> switch status {
-        case Collapsed: new Keyframes('in', context -> [
-          { height: getHeight(context), offset: 0 },
-          { height: 0, offset: 1 }
-        ]);
-        case Expanded: new Keyframes('out', context -> [
-          { height: 0, offset: 0 },
-          { height: getHeight(context), offset: 1 }
-        ]);
-      }),
+      keyframes: keyframes,
       onFinished: context -> {
         #if (js && !nodejs)
         var el:js.html.Element = getPrimitive();

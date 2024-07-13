@@ -1,5 +1,6 @@
 package blok.foundation.dropdown;
 
+import blok.context.Provider;
 import blok.foundation.core.*;
 import blok.foundation.dropdown.DropdownContext;
 import blok.ui.*;
@@ -11,23 +12,25 @@ class Dropdown extends Component {
   @:attribute final child:(context:DropdownContext)->Child;
   @:attribute final status:DropdownStatus = Closed;
 
-  function render() {
-    return DropdownContext.provide(
-      () -> new DropdownContext(attachment, status, gap),
-      dropdown -> Fragment.node(
-        DropdownToggle.node({ child: toggle(dropdown) }),
-        Scope.wrap(context -> switch dropdown.status() {
-          case Open:
-            DropdownPopover.node({
-              onHide: () -> dropdown.close(),
-              attachment: attachment,
-              gap: gap,
-              child: child(dropdown)
-            });
-          case Closed:
-            Placeholder.node();
-        })
-      )
-    );
+  function render():Child {
+    return Provider
+      .provide(()-> new DropdownContext(attachment, status, gap))
+      .child(context -> {
+        var dropdown = DropdownContext.from(context);
+        Fragment.of([
+          DropdownToggle.node({ child: toggle(dropdown) }),
+          Scope.wrap(context -> switch dropdown.status() {
+            case Open:
+              DropdownPopover.node({
+                onHide: () -> dropdown.close(),
+                attachment: attachment,
+                gap: gap,
+                child: child(dropdown)
+              });
+            case Closed:
+              Placeholder.node();
+          })
+        ]);
+      });
   }
 }
