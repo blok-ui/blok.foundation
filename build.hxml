@@ -1,7 +1,6 @@
 -cp src
 -cp examples
 
--lib kit
 -lib blok.core
 -lib breeze
 
