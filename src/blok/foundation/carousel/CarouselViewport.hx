@@ -67,6 +67,7 @@ class CarouselViewport extends Component {
   }
 
   function onDragUpdate(e:js.html.Event) {
+    if (!viewIsMounted()) return;
     if (!isValidInteraction(e)) return;
 
     var context = CarouselContext.from(this);
@@ -87,6 +88,7 @@ class CarouselViewport extends Component {
   }
 
   function onDragEnd(e:js.html.Event) {
+    if (!viewIsMounted()) return;
     e.preventDefault();
 
     js.Browser.window.removeEventListener('mousemove', onDragUpdate);
@@ -137,6 +139,7 @@ class CarouselViewport extends Component {
   }
 
   function resetViewportTransform() {
+    if (!viewIsMounted()) return;
     dragOffset = 0;
     updateViewportTransform();
   }
