@@ -25,20 +25,33 @@ class AutomaticPortal extends Component {
 					.maybeFrom(this)
 					.map(portal -> portal.target)
 					.or(() -> {
-						var adaptor = getAdaptor();
-						var target = adaptor.createContainerPrimitive({'id': 'blok_portal__${new UniqueId()}'});
-						var root = findAncestorOfType(Root).orThrow();
-
-						adaptor.insertPrimitive(target, null, () -> root.getPrimitive());
-						addDisposable(() -> adaptor.removePrimitive(target, null));
-
+						var target = createPortalInRoot();
 						managedTarget = Some(target);
-
 						target;
 					});
 			case Some(target):
 				target;
 		}
 		return Portal.wrap(target, child);
+	}
+
+	function createPortalInRoot() {
+		#if (js && !nodejs)
+		var el = js.Browser.document.createDivElement();
+
+		js.Browser.document.body.prepend(el);
+		addDisposable(() -> el.remove());
+
+		return el;
+		#else
+		var adaptor = getAdaptor();
+		var target = adaptor.createContainerPrimitive({});
+		var root = findAncestorOfType(Root).orThrow();
+
+		adaptor.insertPrimitive(target, null, () -> root.getPrimitive());
+		addDisposable(() -> adaptor.removePrimitive(target, null));
+
+		return target;
+		#end
 	}
 }
