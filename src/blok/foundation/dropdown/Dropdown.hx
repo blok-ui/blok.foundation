@@ -1,9 +1,8 @@
 package blok.foundation.dropdown;
 
 import blok.context.Provider;
-import blok.foundation.core.*;
-import blok.foundation.float.*;
 import blok.foundation.dropdown.DropdownContext;
+import blok.foundation.float.*;
 import blok.ui.*;
 
 class Dropdown extends Component {

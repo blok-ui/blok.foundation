@@ -15,22 +15,11 @@ class AutomaticPortal extends Component {
 
 	@:children @:attribute final child:() -> Child;
 
-	var managedTarget:Maybe<Dynamic> = None;
-
 	function render():Child {
-		var target = switch managedTarget {
-			case None:
-				PortalContext
-					.maybeFrom(this)
-					.map(portal -> portal.target)
-					.or(() -> {
-						var target = createPortalInRoot();
-						managedTarget = Some(target);
-						target;
-					});
-			case Some(target):
-				target;
-		}
+		var target = PortalContext
+			.maybeFrom(this)
+			.map(portal -> portal.target)
+			.or(createPortalInRoot);
 		return Portal.wrap(target, child);
 	}
 
