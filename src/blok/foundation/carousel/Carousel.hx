@@ -14,21 +14,18 @@ class Carousel extends Component {
 
 	function render():Child {
 		var items = [for (index => child in slides) child.createCarouselItem(index)];
-		return Provider
-			.provide(() -> new CarouselContext(items.length, initialIndex, {
-				onlyShowActiveSlides: onlyShowActiveSlides
-			}))
-			.child(context -> {
-				var carousel = CarouselContext.from(context);
-				return Fragment.of([
-					CarouselViewport.node({
-						className: className,
-						duration: duration,
-						dragClamp: dragClamp,
-						children: items
-					}),
-					controls != null ? controls(carousel) : null
-				]);
-			});
+		var carousel = new CarouselContext(items.length, initialIndex, {
+			onlyShowActiveSlides: onlyShowActiveSlides
+		});
+
+		return Provider.provide(carousel).child([
+			CarouselViewport.node({
+				className: className,
+				duration: duration,
+				dragClamp: dragClamp,
+				children: items
+			}),
+			controls != null ? controls(carousel) : null
+		]);
 	}
 }

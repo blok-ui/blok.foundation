@@ -1,5 +1,6 @@
 package ex;
 
+import blok.signal.Computation;
 import blok.foundation.carousel.*;
 import blok.html.Html;
 import blok.ui.*;
@@ -55,10 +56,12 @@ class CarouselExample extends Component {
 				)
 			},
 				Button.node({
+					disabled: new Computation(() -> !carousel.hasPrevious()),
 					action: e -> carousel.previous(),
 					label: 'Previous'
 				}),
 				Button.node({
+					disabled: new Computation(() -> !carousel.hasNext()),
 					action: e -> carousel.next(),
 					label: 'Next'
 				}),

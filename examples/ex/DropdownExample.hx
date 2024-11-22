@@ -1,5 +1,6 @@
 package ex;
 
+import blok.signal.Computation;
 import blok.html.HtmlEvents;
 import blok.ui.*;
 import blok.html.*;
@@ -19,7 +20,7 @@ class DropdownExample extends Component {
 						e.stopPropagation();
 						dropdown.toggle();
 					},
-					label: dropdown.status.map(status -> switch status {
+					label: new Computation(() -> switch dropdown.status() {
 						case Open: 'Close Dropdown';
 						case Closed: 'Open Dropdown';
 					})

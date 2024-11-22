@@ -41,7 +41,7 @@ class Modal extends Component {
 	@:attribute final hideOnEscape:Bool = true;
 
 	public function render():Child {
-		return AutomaticPortal.wrap(() -> Layer.node({
+		return AutomaticPortal.wrap(Layer.node({
 			className: Breeze.compose(
 				Flex.display(),
 				Flex.alignItems('center'),
@@ -64,7 +64,7 @@ class Modal extends Component {
 				ariaModal: 'true',
 				tabIndex: -1,
 				role: 'dialog'
-			}, ...(children : Array<Child>))
+			}).child(children)
 		})).lockScroll();
 	}
 }

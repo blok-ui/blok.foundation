@@ -13,24 +13,22 @@ class Dropdown extends Component {
 	@:attribute final status:DropdownStatus = Closed;
 
 	function render():Child {
+		var dropdown = new DropdownContext(attachment, status, gap);
 		return Provider
-			.provide(() -> new DropdownContext(attachment, status, gap))
-			.child(context -> {
-				var dropdown = DropdownContext.from(context);
-				Fragment.of([
-					DropdownToggle.node({child: toggle(dropdown)}),
-					Scope.wrap(context -> switch dropdown.status() {
-						case Open:
-							DropdownPopover.node({
-								onHide: () -> dropdown.close(),
-								attachment: attachment,
-								gap: gap,
-								child: child(dropdown)
-							});
-						case Closed:
-							Placeholder.node();
-					})
-				]);
-			});
+			.provide(dropdown)
+			.child([
+				DropdownToggle.node({child: toggle(dropdown)}),
+				Scope.wrap(context -> switch dropdown.status() {
+					case Open:
+						DropdownPopover.node({
+							onHide: () -> dropdown.close(),
+							attachment: attachment,
+							gap: gap,
+							child: child(dropdown)
+						});
+					case Closed:
+						Placeholder.node();
+				})
+			]);
 	}
 }

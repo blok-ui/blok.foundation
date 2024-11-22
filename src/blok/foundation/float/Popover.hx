@@ -12,7 +12,7 @@ class Popover extends Component {
 	@:children @:attribute final child:Child;
 
 	function render() {
-		return AutomaticPortal.wrap(() -> Positioned.node({
+		return AutomaticPortal.wrap(Positioned.node({
 			getTarget: getTarget ?? () -> this.findNearestPrimitive(),
 			gap: gap,
 			attachment: attachment,

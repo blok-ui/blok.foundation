@@ -31,6 +31,7 @@ class Button extends Component {
 	@:attribute final label:Child;
 	@:attribute final priority:ButtonPriority = Normal;
 	@:attribute final action:EventListener;
+	@:observable final disabled:Bool = false;
 
 	function render() {
 		return Html.button({
@@ -42,11 +43,13 @@ class Button extends Component {
 				Border.style('solid'),
 				Border.width(.5),
 				Border.color('black', 0),
+				Modifier.disabled(Effect.opacity(25)),
 				switch priority {
 					case Primary: Background.color('sky', 200);
 					case Normal: null;
 				}
 			),
+			disabled: disabled,
 			onClick: action
 		}, label);
 	}

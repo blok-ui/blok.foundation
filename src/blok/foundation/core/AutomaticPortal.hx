@@ -13,7 +13,7 @@ class AutomaticPortal extends Component {
 		return node({child: child});
 	}
 
-	@:children @:attribute final child:() -> Child;
+	@:children @:attribute final child:Child;
 
 	function render():Child {
 		var target = PortalContext
