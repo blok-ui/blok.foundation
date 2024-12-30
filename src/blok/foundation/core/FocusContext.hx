@@ -2,23 +2,17 @@ package blok.foundation.core;
 
 import blok.context.Context;
 
-@:fallback(FocusContext.instance())
+@:fallback(new FocusContext())
 class FocusContext implements Context {
-	static public function instance() {
-		static var context:Null<FocusContext> = null;
-		if (context == null) context = new FocusContext();
-		return context;
-	}
-
 	#if (js && !nodejs)
 	var previous:Null<js.html.Element> = null;
 	#end
 
 	public function new() {}
 
-	public function focus(object:Dynamic) {
+	public function focus(primitive:Dynamic) {
 		#if (js && !nodejs)
-		var el:js.html.Element = object;
+		var el:js.html.Element = primitive;
 		if (previous == null) {
 			previous = el.ownerDocument.activeElement;
 		}

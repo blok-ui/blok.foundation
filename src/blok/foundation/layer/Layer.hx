@@ -36,47 +36,45 @@ class Layer extends Component {
 
 	function render():Child {
 		var layer = new LayerContext();
-		var body = Html.div({
-			className: className,
-			style: 'position:fixed;inset:0px;overflow-x:hidden;overflow-y:scroll;',
-			onClick: e -> if (hideOnClick) {
-				e.preventDefault();
-				layer.hide();
-			}
-		}, LayerTarget.node({child: child}));
-		var animation = Animated.node({
-			keyframes: new Computation(() -> {
-				switch layer.status() {
-					case Showing:
-						showAnimation;
-					case Hiding:
-						hideAnimation;
-				}
-			}),
-			duration: transitionSpeed,
-			onStart: _ -> switch layer.status.peek() {
-				case Showing:
-					showRealNode();
-				case Hiding:
-			},
-			onFinished: _ -> switch layer.status.peek() {
-				case Showing:
-					if (onShow != null) onShow();
-				case Hiding:
-					hideRealNode();
-					if (onHide != null) onHide();
-			},
-			onDispose: _ -> {
-				if (onHide != null) onHide();
-			},
-			child: body
-		});
 
 		return Provider
 			.provide(layer)
 			.child(LayerContainer.node({
 				hideOnEscape: hideOnEscape,
-				child: animation
+				child: Animated.node({
+					keyframes: new Computation(() -> {
+						switch layer.status() {
+							case Showing:
+								showAnimation;
+							case Hiding:
+								hideAnimation;
+						}
+					}),
+					duration: transitionSpeed,
+					onStart: _ -> switch layer.status.peek() {
+						case Showing:
+							showRealNode();
+						case Hiding:
+					},
+					onFinished: _ -> switch layer.status.peek() {
+						case Showing:
+							if (onShow != null) onShow();
+						case Hiding:
+							hideRealNode();
+							if (onHide != null) onHide();
+					},
+					onDispose: _ -> {
+						if (onHide != null) onHide();
+					},
+					child: Html.div({
+						className: className,
+						style: 'position:fixed;inset:0px;overflow-x:hidden;overflow-y:scroll;',
+						onClick: e -> if (hideOnClick) {
+							e.preventDefault();
+							layer.hide();
+						}
+					}, LayerTarget.node({child: child}))
+				})
 			}));
 	}
 }

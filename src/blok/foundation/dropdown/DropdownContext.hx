@@ -34,7 +34,5 @@ class DropdownContext implements Context {
 		status.update(status -> status == Open ? Closed : Open);
 	}
 
-	public function dispose() {
-		// status.dispose();
-	}
+	public function dispose() {}
 }

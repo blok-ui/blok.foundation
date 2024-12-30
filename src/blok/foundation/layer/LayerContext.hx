@@ -10,21 +10,23 @@ enum LayerContextStatus {
 
 @:fallback(new LayerContext())
 class LayerContext implements Context {
-	public final status:Signal<LayerContextStatus>;
+	public var status(get, never):ReadOnlySignal<LayerContextStatus>;
+
+	inline function get_status() return statusSignal;
+
+	final statusSignal:Signal<LayerContextStatus>;
 
 	public function new(?status) {
-		this.status = new Signal(status ?? Showing);
+		statusSignal = new Signal(status ?? Showing);
 	}
 
 	public function hide():Void {
-		status.set(Hiding);
+		statusSignal.set(Hiding);
 	}
 
 	public function show():Void {
-		status.set(Showing);
+		statusSignal.set(Showing);
 	}
 
-	public function dispose() {
-		// status.dispose();
-	}
+	public function dispose() {}
 }

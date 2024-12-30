@@ -3,9 +3,9 @@ package blok.foundation.keyboard;
 import blok.ui.*;
 
 class KeyboardInput extends Component {
-	@:attribute final child:Child;
 	@:attribute final preventDefault:Bool = true;
 	@:attribute final handler:(key:KeyType, getModifierState:(modifier:KeyModifier) -> Bool) -> Void;
+	@:children @:attribute final child:Child;
 
 	#if (js && !nodejs)
 	function setup() {
