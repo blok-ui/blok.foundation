@@ -2,7 +2,7 @@ package blok.foundation.dropdown;
 
 import blok.foundation.float.*;
 import blok.foundation.core.*;
-import blok.ui.*;
+import blok.*;
 
 /**
 	This is the popover that is rendered when the Dropdown is 

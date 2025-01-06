@@ -1,9 +1,9 @@
 package ex;
 
-import blok.signal.Computation;
+import blok.*;
 import blok.foundation.carousel.*;
 import blok.html.Html;
-import blok.ui.*;
+import blok.signal.Computation;
 import ex.Core;
 
 class CarouselExample extends Component {

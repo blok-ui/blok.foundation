@@ -1,10 +1,10 @@
 package blok;
 
-import blok.foundation.core.*;
-import blok.foundation.keyboard.*;
-import blok.foundation.float.*;
+import blok.Child;
 import blok.foundation.animation.*;
-import blok.ui.Child;
+import blok.foundation.core.*;
+import blok.foundation.float.*;
+import blok.foundation.keyboard.*;
 
 /**
 	Lock document scrolling as long as this component is active.

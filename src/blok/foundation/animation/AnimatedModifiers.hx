@@ -1,6 +1,6 @@
 package blok.foundation.animation;
 
-import blok.ui.*;
+import blok.*;
 
 function withAnimation(child:Child, id:String, factory, ?options:{
 	?easing:String,

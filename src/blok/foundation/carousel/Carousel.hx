@@ -1,7 +1,7 @@
 package blok.foundation.carousel;
 
-import blok.context.Provider;
-import blok.ui.*;
+import blok.Provider;
+import blok.*;
 
 class Carousel extends Component {
 	@:attribute final className:String = null;

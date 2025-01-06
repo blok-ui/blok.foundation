@@ -1,6 +1,6 @@
 package blok.foundation.layer;
 
-import blok.context.Context;
+import blok.Context;
 import blok.signal.Signal;
 
 enum LayerContextStatus {

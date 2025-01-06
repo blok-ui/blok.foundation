@@ -1,6 +1,6 @@
 package blok.foundation.animation;
 
-import blok.ui.View;
+import blok.View;
 
 using Lambda;
 using Reflect;

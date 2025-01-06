@@ -1,6 +1,6 @@
 package blok.foundation.keyboard;
 
-import blok.ui.*;
+import blok.*;
 
 typedef KeyboardInputHandler = (key:KeyType, getModifierState:(modifier:KeyModifier) -> Bool) -> Void;
 

@@ -1,7 +1,7 @@
 package blok.foundation.collapse;
 
 import blok.foundation.animation.*;
-import blok.ui.*;
+import blok.*;
 
 class CollapseItem extends Component {
 	@:context final collapse:CollapseContext;

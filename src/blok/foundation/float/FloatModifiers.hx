@@ -1,6 +1,6 @@
 package blok.foundation.float;
 
-import blok.ui.*;
+import blok.*;
 
 function inPopover(child:Child, attachment:PositionedAttachment, ?options:{
 	?getTarget:() -> Dynamic,

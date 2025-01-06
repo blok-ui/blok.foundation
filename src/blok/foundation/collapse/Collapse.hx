@@ -1,9 +1,9 @@
 package blok.foundation.collapse;
 
-import blok.context.Provider;
+import blok.Provider;
 import blok.foundation.accordion.AccordionContext;
 import blok.foundation.collapse.CollapseContext;
-import blok.ui.*;
+import blok.*;
 
 class Collapse extends Component {
 	@:attribute final initialStatus:CollapseContextStatus = Collapsed;

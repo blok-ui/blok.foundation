@@ -1,6 +1,6 @@
 package blok.foundation.keyboard;
 
-import blok.ui.*;
+import blok.*;
 
 class KeyboardInput extends Component {
 	@:attribute final preventDefault:Bool = true;

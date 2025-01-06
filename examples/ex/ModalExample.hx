@@ -1,8 +1,8 @@
 package ex;
 
+import blok.*;
 import blok.foundation.core.*;
 import blok.foundation.layer.*;
-import blok.ui.*;
 import blok.html.*;
 import ex.Core;
 

@@ -1,6 +1,6 @@
 package blok.foundation.core;
 
-import blok.ui.*;
+import blok.*;
 
 class ScrollLocked extends Component {
 	@:children @:attribute final child:Child;

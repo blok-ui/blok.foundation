@@ -1,7 +1,7 @@
 package blok.foundation.layer;
 
 import blok.foundation.core.FocusContext;
-import blok.ui.*;
+import blok.*;
 
 using blok.foundation.keyboard.KeyboardModifiers;
 

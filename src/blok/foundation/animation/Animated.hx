@@ -1,7 +1,7 @@
 package blok.foundation.animation;
 
 import blok.signal.Observer;
-import blok.ui.*;
+import blok.*;
 #if (js && !nodejs)
 import js.Browser.window;
 import js.html.Animation;

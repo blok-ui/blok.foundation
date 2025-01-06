@@ -1,8 +1,8 @@
 package ex;
 
+import blok.*;
 import blok.foundation.collapse.*;
 import blok.html.*;
-import blok.ui.*;
 import ex.Core;
 
 class CollapseExample extends Component {

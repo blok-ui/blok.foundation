@@ -1,9 +1,9 @@
 package blok.foundation.float;
 
-import blok.ui.*;
+import blok.*;
 import blok.foundation.core.*;
 
-using blok.adaptor.PrimitiveHostTools;
+using blok.PrimitiveHostTools;
 
 class Popover extends Component {
 	@:attribute final attachment:PositionedAttachment;

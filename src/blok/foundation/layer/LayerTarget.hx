@@ -1,6 +1,6 @@
 package blok.foundation.layer;
 
-import blok.ui.*;
+import blok.*;
 
 class LayerTarget extends Component {
 	@:children @:attribute final child:Child;

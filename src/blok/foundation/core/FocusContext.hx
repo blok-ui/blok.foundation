@@ -1,6 +1,6 @@
 package blok.foundation.core;
 
-import blok.context.Context;
+import blok.Context;
 
 @:fallback(new FocusContext())
 class FocusContext implements Context {

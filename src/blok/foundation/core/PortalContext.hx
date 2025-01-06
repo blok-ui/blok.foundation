@@ -1,6 +1,6 @@
 package blok.foundation.core;
 
-import blok.context.Context;
+import blok.Context;
 
 @:fallback(instance())
 class PortalContext implements Context {

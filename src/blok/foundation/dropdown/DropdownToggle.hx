@@ -1,6 +1,6 @@
 package blok.foundation.dropdown;
 
-import blok.ui.*;
+import blok.*;
 
 /**
 	This is used as a target when determining where the popover

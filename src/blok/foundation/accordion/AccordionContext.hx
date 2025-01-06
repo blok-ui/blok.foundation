@@ -1,6 +1,6 @@
 package blok.foundation.accordion;
 
-import blok.context.Context;
+import blok.Context;
 import blok.foundation.collapse.*;
 import blok.signal.*;
 

@@ -1,10 +1,10 @@
 package blok.foundation.layer;
 
 import blok.signal.Computation;
-import blok.context.Provider;
+import blok.Provider;
 import blok.foundation.animation.*;
 import blok.html.Html;
-import blok.ui.*;
+import blok.*;
 
 final DefaultShowAnimation = new Keyframes('show', context -> [{opacity: 0}, {opacity: 1}]);
 final DefaultHideAnimation = new Keyframes('hide', context -> [{opacity: 1}, {opacity: 0}]);

@@ -1,6 +1,6 @@
 package blok.foundation.dropdown;
 
-import blok.ui.*;
+import blok.*;
 
 /**
 	This component is just a marker that indicates if something

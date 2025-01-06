@@ -1,6 +1,6 @@
 package blok.foundation.carousel;
 
-import blok.ui.*;
+import blok.*;
 
 typedef SlideFactory = (context:CarouselContext) -> Child;
 

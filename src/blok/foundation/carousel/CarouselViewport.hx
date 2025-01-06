@@ -3,7 +3,7 @@ package blok.foundation.carousel;
 import blok.foundation.animation.*;
 import blok.html.Html;
 import blok.signal.*;
-import blok.ui.*;
+import blok.*;
 
 using Lambda;
 

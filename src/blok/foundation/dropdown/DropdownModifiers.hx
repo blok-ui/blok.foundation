@@ -1,6 +1,6 @@
 package blok.foundation.dropdown;
 
-import blok.ui.*;
+import blok.*;
 
 /**
 	Mark this component as a dropdown item. These items should be

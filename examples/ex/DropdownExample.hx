@@ -1,10 +1,10 @@
 package ex;
 
-import blok.signal.Computation;
-import blok.html.HtmlEvents;
-import blok.ui.*;
-import blok.html.*;
+import blok.*;
 import blok.foundation.dropdown.*;
+import blok.html.*;
+import blok.html.HtmlEvents;
+import blok.signal.Computation;
 import ex.Core;
 
 using blok.foundation.dropdown.DropdownModifiers;

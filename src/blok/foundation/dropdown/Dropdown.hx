@@ -1,9 +1,9 @@
 package blok.foundation.dropdown;
 
-import blok.context.Provider;
+import blok.Provider;
 import blok.foundation.dropdown.DropdownContext;
 import blok.foundation.float.*;
-import blok.ui.*;
+import blok.*;
 
 class Dropdown extends Component {
 	@:attribute final attachment:PositionedAttachment = ({h: Middle, v: Bottom} : PositionedAttachment);

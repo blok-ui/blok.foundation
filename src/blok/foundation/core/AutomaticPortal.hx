@@ -1,6 +1,6 @@
 package blok.foundation.core;
 
-import blok.ui.*;
+import blok.*;
 
 /**
 	The AutomaticPortal will attempt to place a child in the target provided

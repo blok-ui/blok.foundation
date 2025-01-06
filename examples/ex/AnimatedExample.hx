@@ -1,6 +1,6 @@
 package ex;
 
-import blok.ui.*;
+import blok.*;
 import blok.html.*;
 
 using blok.foundation.animation.AnimatedModifiers;

@@ -1,6 +1,6 @@
 package blok.foundation.float;
 
-import blok.ui.*;
+import blok.*;
 
 class Positioned extends Component {
 	@:attribute final getTarget:() -> Dynamic;
