@@ -2,7 +2,7 @@
   "name": "blok.foundation",
   "description": "Unstyled components for Blok",
   "releasenote": "Latest Blok Core",
-  "version": "0.1.1",
+  "version": "0.2.0-alpha.1",
   "license": "MIT",
   "classPath": "src",
   "contributors": [
