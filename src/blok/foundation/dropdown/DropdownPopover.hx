@@ -32,15 +32,17 @@ class DropdownPopover extends Component {
 	var current:Null<DropdownItem> = null;
 
 	function setup() {
+		var controller = new js.html.AbortController();
 		var document = js.Browser.document;
 
-		document.addEventListener('keydown', onKeyDown);
-		document.addEventListener('click', hide);
+		// @todo: The Haxe API seems incomplete and does not have a `signal` option
+		// here, hence the `cast`.
+		document.addEventListener('keydown', onKeyDown, cast {signal: controller.signal});
+		document.addEventListener('click', hide, cast {signal: controller.signal});
 		maybeFocusFirst();
 
 		addDisposable(() -> {
-			document.removeEventListener('keydown', onKeyDown);
-			document.removeEventListener('click', hide);
+			controller.abort();
 			FocusContext.from(this).returnFocus();
 		});
 	}

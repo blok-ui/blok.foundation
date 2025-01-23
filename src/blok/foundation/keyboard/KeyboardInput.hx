@@ -9,15 +9,20 @@ class KeyboardInput extends Component {
 
 	#if (js && !nodejs)
 	function setup() {
-		function listener(e:js.html.KeyboardEvent) {
-			if (preventDefault) e.preventDefault();
-			handler(e.key, (key:KeyModifier) -> e.getModifierState(key));
-		}
-
+		var controller = new js.html.AbortController();
 		var el:js.html.Element = getPrimitive();
 		var document = el.ownerDocument;
-		document.addEventListener('keydown', listener);
-		addDisposable(() -> document.removeEventListener('keydown', listener));
+
+		document.addEventListener('keydown', (e:js.html.KeyboardEvent) -> {
+			if (preventDefault) e.preventDefault();
+			handler(e.key, (key:KeyModifier) -> e.getModifierState(key));
+		}, cast {
+			// @todo: The Haxe API seems incomplete and does not have a signal
+			// option here -- hence the `cast`.
+			signal: controller.signal
+		});
+
+		addDisposable(() -> controller.abort());
 	}
 	#end
 
