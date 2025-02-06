@@ -27,10 +27,10 @@ class CarouselContext implements Context {
 		this.previousIndex = index;
 		this.options = options == null ? {onlyShowActiveSlides: false} : options;
 
-		var prev = Owner.setCurrent(owner);
-		this.hasNext = new Computation(() -> this.index() < (count - 1));
-		this.hasPrevious = new Computation(() -> this.index() > 0);
-		Owner.setCurrent(prev);
+		Owner.capture(owner, {
+			this.hasNext = new Computation(() -> this.index() < (count - 1));
+			this.hasPrevious = new Computation(() -> this.index() > 0);
+		});
 	}
 
 	public function getPosition():{current:Int, previous:Int} {
