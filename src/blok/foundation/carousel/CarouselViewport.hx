@@ -22,6 +22,7 @@ class CarouselViewport extends Component {
 	var startDrag:Float = -1;
 	var previousDrag:Float = 0;
 	var dragOffset:Float = 0;
+	final controller = new js.html.AbortController();
 
 	function getTarget() {
 		return findChildOfType(Animated, true)
@@ -57,10 +58,12 @@ class CarouselViewport extends Component {
 		startDrag = getInteractionPosition(e);
 		previousDrag = startDrag;
 
-		js.Browser.window.addEventListener('mousemove', onDragUpdate);
-		js.Browser.window.addEventListener('mouseup', onDragEnd);
-		js.Browser.window.addEventListener('touchmove', onDragUpdate);
-		js.Browser.window.addEventListener('touchend', onDragEnd);
+		// @todo: The Haxe API seems incomplete and does not have a `signal` option
+		// here, hence the `cast`.
+		js.Browser.window.addEventListener('mousemove', onDragUpdate, cast {signal: controller.signal});
+		js.Browser.window.addEventListener('mouseup', onDragEnd, cast {signal: controller.signal});
+		js.Browser.window.addEventListener('touchmove', onDragUpdate, cast {signal: controller.signal});
+		js.Browser.window.addEventListener('touchend', onDragEnd, cast {signal: controller.signal});
 	}
 
 	function onDragUpdate(e:js.html.Event) {
@@ -139,14 +142,10 @@ class CarouselViewport extends Component {
 
 	function setup() {
 		var window = js.Browser.window;
-		window.addEventListener('resize', resetViewportTransform);
-		addDisposable(() -> {
-			window.removeEventListener('resize', resetViewportTransform);
-			window.removeEventListener('mousemove', onDragUpdate);
-			window.removeEventListener('mouseup', onDragEnd);
-			window.removeEventListener('touchmove', onDragUpdate);
-			window.removeEventListener('touchend', onDragEnd);
-		});
+
+		window.addEventListener('resize', resetViewportTransform, cast {signal: controller.signal});
+
+		addDisposable(() -> controller.abort());
 	}
 	#else
 	function getOffset(_:Int) {

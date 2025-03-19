@@ -13,14 +13,10 @@ class KeyboardInput extends Component {
 		var el:js.html.Element = getPrimitive();
 		var document = el.ownerDocument;
 
-		document.addEventListener('keydown', (e:js.html.KeyboardEvent) -> {
+		document.addControlledEventListener('keydown', (e:js.html.KeyboardEvent) -> {
 			if (preventDefault) e.preventDefault();
 			handler(e.key, (key:KeyModifier) -> e.getModifierState(key));
-		}, cast {
-			// @todo: The Haxe API seems incomplete and does not have a signal
-			// option here -- hence the `cast`.
-			signal: controller.signal
-		});
+		}, controller);
 
 		addDisposable(() -> controller.abort());
 	}

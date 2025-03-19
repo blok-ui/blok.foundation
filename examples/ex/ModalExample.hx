@@ -7,7 +7,7 @@ import blok.html.*;
 import ex.Core;
 
 using Breeze;
-using blok.foundation.core.CoreModifiers;
+using blok.FoundationModifiers;
 
 class ModalExample extends Component {
 	@:signal final isOpen:Bool = false;
