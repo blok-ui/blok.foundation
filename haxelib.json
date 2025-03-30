@@ -10,6 +10,6 @@
   ],
   "dependencies": {
     "blok.core": "0.10.0",
-    "kit": "0.2.1"
+    "kit": "0.3.1"
   }
 }

@@ -107,11 +107,14 @@ private function registerAnimations(el:Element, keyframes:Array<Dynamic>, option
 }
 
 private function stopAnimations(el:Element, onFinished:() -> Void) {
-	kit.Task.parallel(...el.getAnimations().map(animation -> new kit.Task(activate -> {
-		animation.addEventListener('cancel', () -> activate(Ok(null)), {once: true});
-		animation.addEventListener('finish', () -> activate(Ok(null)), {once: true});
-		animation.cancel();
-	}))).handle(_ -> onFinished());
+	el.getAnimations()
+		.map(animation -> new kit.Task(activate -> {
+			animation.addEventListener('cancel', () -> activate(Ok(null)), {once: true});
+			animation.addEventListener('finish', () -> activate(Ok(null)), {once: true});
+			animation.cancel();
+		}))
+		.inParallel()
+		.handle(_ -> onFinished());
 }
 
 private function prefersReducedMotion() {
