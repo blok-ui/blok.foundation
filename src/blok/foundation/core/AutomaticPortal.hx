@@ -36,7 +36,7 @@ class AutomaticPortal extends Component {
 		var target = adaptor.createContainerPrimitive({});
 		var root = findAncestorOfType(Root).orThrow();
 
-		adaptor.insertPrimitive(target, null, () -> root.getPrimitive());
+		adaptor.insertPrimitive(this, target, null);
 		addDisposable(() -> adaptor.removePrimitive(target, null));
 
 		return target;
