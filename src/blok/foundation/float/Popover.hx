@@ -11,7 +11,7 @@ class Popover extends Component {
 
 	function render() {
 		return AutomaticPortal.wrap(Positioned.node({
-			getTarget: getTarget ?? () -> this.getNearestPrimitive(),
+			getTarget: getTarget ?? () -> __slot.host.getOwnPrimitive(),
 			gap: gap,
 			attachment: attachment,
 			child: child

@@ -39,7 +39,7 @@ class AutomaticPortal extends Component {
 		adaptor.insertPrimitive(this, target, null);
 		addDisposable(() -> adaptor.removePrimitive(target, null));
 
-		return target;
+		return target;ser
 		#end
 	}
 }
