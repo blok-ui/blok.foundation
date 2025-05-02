@@ -13,16 +13,12 @@ class CarouselViewport extends Component {
 	@:attribute final dragClamp:Int = 50;
 	@:children @:attribute final children:Children;
 
-	// @todo: These controls have some issues. First, we need to make
-	// sure that only left-clicks (or single finger touches) have an effect.
-	// ...and that's all I can think of right now? I'm sure there's more.
-	//
-	// We should make the drag behavior optional, I suppose.
 	#if (js && !nodejs)
+	final controller = new js.html.AbortController();
+
 	var startDrag:Float = -1;
 	var previousDrag:Float = 0;
 	var dragOffset:Float = 0;
-	final controller = new js.html.AbortController();
 
 	function getTarget() {
 		return findChildOfType(Animated, true)
@@ -31,8 +27,14 @@ class CarouselViewport extends Component {
 	}
 
 	function isValidInteraction(e:js.html.Event) {
+		// @todo: Somehow we need to check if the direct interaction we're doing is selecting text.
+		// This is made complicated by the fact that just checking if the target element contains a
+		// text node will always be true, so we need a more complex test.
 		return switch Std.downcast(e, js.html.TouchEvent) {
-			case null: var mouse = e.as(js.html.MouseEvent); mouse.buttons == 1 && mouse.button == 0;
+			case null:
+				var mouse = e.as(js.html.MouseEvent);
+				var check = mouse?.buttons == 1 && mouse?.button == 0;
+				check;
 			case touch:
 				// @todo: not sure if the following is enough
 				touch.touches.length == 1;
@@ -49,9 +51,6 @@ class CarouselViewport extends Component {
 	}
 
 	function onDragStart(e:js.html.Event) {
-		// @todo: Potentially check the event target and don't drag if it's
-		// text.
-
 		if (!isValidInteraction(e)) return;
 
 		e.preventDefault();
@@ -164,7 +163,7 @@ class CarouselViewport extends Component {
 			className: className,
 			style: 'overflow:hidden'
 		}, Animated.node({
-			keyframes: new Keyframes('blok.foundation.carousel', context -> {
+			keyframes: new Keyframes('blok.foundation.carousel', _ -> {
 				var pos = carousel.getPosition();
 				#if (js && !nodejs)
 				var currentOffset = getOffset(pos.previous) + dragOffset;

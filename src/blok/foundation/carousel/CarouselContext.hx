@@ -1,6 +1,5 @@
 package blok.foundation.carousel;
 
-import blok.signal.Computation;
 import blok.Context;
 import blok.Owner;
 import blok.debug.Debug;
@@ -14,11 +13,10 @@ typedef CarouselContextOptions = {
 class CarouselContext implements Context {
 	public final options:CarouselContextOptions;
 	public final count:Int;
-	public final hasNext:Computation<Bool>;
-	public final hasPrevious:Computation<Bool>;
+	public final hasNext:ReadOnlySignal<Bool>;
+	public final hasPrevious:ReadOnlySignal<Bool>;
 	public final index:Signal<Int>;
 
-	final owner:Owner = new Owner();
 	var previousIndex:Int;
 
 	public function new(count, index, ?options:CarouselContextOptions) {
@@ -26,11 +24,8 @@ class CarouselContext implements Context {
 		this.index = new Signal(index);
 		this.previousIndex = index;
 		this.options = options == null ? {onlyShowActiveSlides: false} : options;
-
-		Owner.capture(owner, {
-			this.hasNext = new Computation(() -> this.index() < (count - 1));
-			this.hasPrevious = new Computation(() -> this.index() > 0);
-		});
+		this.hasNext = this.index.map(index -> index < (count - 1));
+		this.hasPrevious = this.index.map(index -> index > 0);
 	}
 
 	public function getPosition():{current:Int, previous:Int} {
@@ -58,7 +53,5 @@ class CarouselContext implements Context {
 		});
 	}
 
-	public function dispose() {
-		owner.dispose();
-	}
+	public function dispose() {}
 }

@@ -1,10 +1,9 @@
 package blok.foundation.layer;
 
-import blok.signal.Computation;
+import blok.*;
 import blok.Provider;
 import blok.foundation.animation.*;
 import blok.html.Html;
-import blok.*;
 
 final DefaultShowAnimation = new Keyframes('show', context -> [{opacity: 0}, {opacity: 1}]);
 final DefaultHideAnimation = new Keyframes('hide', context -> [{opacity: 1}, {opacity: 0}]);
@@ -14,11 +13,11 @@ class Layer extends Component {
 	@:attribute final onHide:() -> Void;
 	@:attribute final hideOnClick:Bool = true;
 	@:attribute final hideOnEscape:Bool = true;
-	@:attribute final child:Child;
 	@:attribute final className:String = null;
 	@:attribute final transitionSpeed:Int = 150;
 	@:attribute final showAnimation:Keyframes = DefaultShowAnimation;
 	@:attribute final hideAnimation:Keyframes = DefaultHideAnimation;
+	@:children @:attribute final child:Child;
 
 	function showRealNode() {
 		#if (js && !nodejs)
@@ -42,13 +41,11 @@ class Layer extends Component {
 			.child(LayerContainer.node({
 				hideOnEscape: hideOnEscape,
 				child: Animated.node({
-					keyframes: new Computation(() -> {
-						switch layer.status() {
-							case Showing:
-								showAnimation;
-							case Hiding:
-								hideAnimation;
-						}
+					keyframes: layer.status.map(status -> switch status {
+						case Showing:
+							showAnimation;
+						case Hiding:
+							hideAnimation;
 					}),
 					duration: transitionSpeed,
 					onStart: _ -> switch layer.status.peek() {
@@ -73,7 +70,7 @@ class Layer extends Component {
 							e.preventDefault();
 							layer.hide();
 						}
-					}, LayerTarget.node({child: child}))
+					}).child(LayerTarget.node({child: child}))
 				})
 			}));
 	}

@@ -3,7 +3,6 @@ package ex;
 import blok.*;
 import blok.foundation.carousel.*;
 import blok.html.Html;
-import blok.signal.Computation;
 import ex.Core;
 
 class CarouselExample extends Component {
@@ -56,12 +55,12 @@ class CarouselExample extends Component {
 				)
 			},
 				Button.node({
-					disabled: new Computation(() -> !carousel.hasPrevious()),
+					disabled: carousel.hasPrevious.map(value -> !value),
 					action: e -> carousel.previous(),
 					label: 'Previous'
 				}),
 				Button.node({
-					disabled: new Computation(() -> !carousel.hasNext()),
+					disabled: carousel.hasNext.map(value -> !value),
 					action: e -> carousel.next(),
 					label: 'Next'
 				}),

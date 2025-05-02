@@ -4,7 +4,6 @@ import blok.*;
 import blok.foundation.dropdown.*;
 import blok.html.*;
 import blok.html.HtmlEvents;
-import blok.signal.Computation;
 import ex.Core;
 
 using blok.foundation.dropdown.DropdownModifiers;
@@ -20,7 +19,7 @@ class DropdownExample extends Component {
 						e.stopPropagation();
 						dropdown.toggle();
 					},
-					label: new Computation(() -> switch dropdown.status() {
+					label: dropdown.status.map(status -> switch status {
 						case Open: 'Close Dropdown';
 						case Closed: 'Open Dropdown';
 					})
