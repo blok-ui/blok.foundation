@@ -108,9 +108,17 @@ private function registerAnimations(el:Element, keyframes:Array<Dynamic>, option
 
 private function stopAnimations(el:Element, onFinished:() -> Void) {
 	el.getAnimations()
-		.map(animation -> new kit.Task(activate -> {
-			animation.addEventListener('cancel', () -> activate(Ok(null)), {once: true});
-			animation.addEventListener('finish', () -> activate(Ok(null)), {once: true});
+		.map(animation -> new Future(activate -> {
+			var activated = false;
+
+			function dispatch() {
+				if (activated) return;
+				activated = true;
+				activate(null);
+			}
+
+			animation.addEventListener('cancel', () -> dispatch(), {once: true});
+			animation.addEventListener('finish', () -> dispatch(), {once: true});
 			animation.cancel();
 		}))
 		.inParallel()
