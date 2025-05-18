@@ -24,22 +24,10 @@ class AutomaticPortal extends Component {
 	}
 
 	function createPortalInRoot() {
-		#if (js && !nodejs)
-		var el = js.Browser.document.createDivElement();
-
-		js.Browser.document.body.prepend(el);
-		addDisposable(() -> el.remove());
-
-		return el;
-		#else
-		var adaptor = getAdaptor();
-		var target = adaptor.createContainerPrimitive({});
-		var root = findAncestorOfType(Root).orThrow();
-
-		adaptor.insertPrimitive(target, new Slot(root, 0, null));
-		addDisposable(() -> adaptor.removePrimitive(target, null));
-
-		return target;
-		#end
+		var root = Root.from(this);
+		var container = root.adaptor.createContainerPrimitive();
+		root.adaptor.siblings(root.primitive).insert(container);
+		addDisposable(() -> root.adaptor.removePrimitive(container));
+		return container;
 	}
 }
