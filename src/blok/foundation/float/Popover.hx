@@ -1,6 +1,6 @@
 package blok.foundation.float;
 
-import blok.*;
+import blok.engine.*;
 import blok.foundation.core.*;
 
 class Popover extends Component {
@@ -11,7 +11,11 @@ class Popover extends Component {
 
 	function render() {
 		return AutomaticPortal.wrap(Positioned.node({
-			getTarget: getTarget ?? () -> __slot.host.getOwnPrimitive(),
+			// getTarget: getTarget ?? () -> __slot.host.getOwnPrimitive(),
+			getTarget: getTarget ?? () -> investigate()
+				.findAncestorOfType(PrimitiveView)
+				.as(View)
+				.firstPrimitive(),
 			gap: gap,
 			attachment: attachment,
 			child: child

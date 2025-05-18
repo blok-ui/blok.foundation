@@ -21,14 +21,14 @@ class Layer extends Component {
 
 	function showRealNode() {
 		#if (js && !nodejs)
-		var el:js.html.Element = getPrimitive();
+		var el:js.html.Element = investigate().getPrimitive();
 		el.style.visibility = 'visible';
 		#end
 	}
 
 	function hideRealNode() {
 		#if (js && !nodejs)
-		var el:js.html.Element = getPrimitive();
+		var el:js.html.Element = investigate().getPrimitive();
 		el.style.visibility = 'hidden';
 		#end
 	}

@@ -15,7 +15,7 @@ class Positioned extends Component {
 	#if (js && !nodejs)
 	function setup() {
 		var window = js.Browser.window;
-		var el:js.html.Element = getPrimitive();
+		var el:js.html.Element = investigate().getPrimitive();
 
 		// @todo: this happens too late in the process and will
 		// cause the element to get mounted without being `fixed` first.
@@ -36,7 +36,7 @@ class Positioned extends Component {
 	}
 
 	function positionElement() {
-		var el:js.html.Element = getPrimitive();
+		var el:js.html.Element = investigate().getPrimitive();
 		var target:js.html.Element = getTarget();
 		var targetRect = target.getBoundingClientRect();
 		var container = getContainerSize();

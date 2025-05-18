@@ -10,7 +10,7 @@ class KeyboardInput extends Component {
 	#if (js && !nodejs)
 	function setup() {
 		var controller = new js.html.AbortController();
-		var el:js.html.Element = getPrimitive();
+		var el:js.html.Element = investigate().getPrimitive();
 		var document = el.ownerDocument;
 
 		document.addControlledEventListener('keydown', (e:js.html.KeyboardEvent) -> {

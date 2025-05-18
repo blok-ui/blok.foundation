@@ -1,6 +1,6 @@
 package blok.foundation.animation;
 
-import blok.View;
+import blok.engine.*;
 
 using Lambda;
 using Reflect;
@@ -18,7 +18,7 @@ class Keyframes {
 		return id == other.id;
 	}
 
-	public function create(context) {
+	public function create(context:IntoView) {
 		return factory(context);
 	}
 }

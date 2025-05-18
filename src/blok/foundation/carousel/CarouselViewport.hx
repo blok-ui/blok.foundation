@@ -21,8 +21,9 @@ class CarouselViewport extends Component {
 	var dragOffset:Float = 0;
 
 	function getTarget() {
-		return findChildOfType(Animated, true)
-			.flatMap(component -> component.getPrimitive().as(js.html.Element).toMaybe())
+		return investigate()
+			.findComponent(Animated, true)
+			.flatMap(component -> component.investigate().getPrimitive().as(js.html.Element).toMaybe())
 			.orThrow('Could not find Animated child -- `getTarget` may have been called before the component rendered');
 	}
 
@@ -66,7 +67,7 @@ class CarouselViewport extends Component {
 	}
 
 	function onDragUpdate(e:js.html.Event) {
-		if (!viewIsMounted()) return;
+		if (!investigate().isMounted()) return;
 		if (!isValidInteraction(e)) return;
 
 		var context = CarouselContext.from(this);
@@ -87,7 +88,7 @@ class CarouselViewport extends Component {
 	}
 
 	function onDragEnd(e:js.html.Event) {
-		if (!viewIsMounted()) return;
+		if (!investigate().isMounted()) return;
 		e.preventDefault();
 
 		js.Browser.window.removeEventListener('mousemove', onDragUpdate);
@@ -124,8 +125,8 @@ class CarouselViewport extends Component {
 	}
 
 	function getOffset(position:Int) {
-		var slides = filterChildrenOfType(CarouselItem, true);
-		return slides.find(slide -> slide.position == position)?.getPrimitive()?.as(js.html.Element)?.offsetLeft ?? 0.0;
+		var slides = investigate().filterComponents(CarouselItem, true);
+		return slides.find(slide -> slide.position == position)?.investigate()?.getPrimitive()?.as(js.html.Element)?.offsetLeft ?? 0.0;
 	}
 
 	function updateViewportTransform() {
@@ -134,7 +135,7 @@ class CarouselViewport extends Component {
 	}
 
 	function resetViewportTransform() {
-		if (!viewIsMounted()) return;
+		if (!investigate().isMounted()) return;
 		dragOffset = 0;
 		updateViewportTransform();
 	}

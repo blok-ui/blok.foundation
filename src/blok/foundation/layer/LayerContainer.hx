@@ -21,7 +21,11 @@ class LayerContainer extends Component {
 
 	#if (js && !nodejs)
 	function setup() {
-		var node = findChildOfType(LayerTarget, true).orThrow('Expected a LayerTarget').getPrimitive();
+		var node = investigate()
+			.findComponent(LayerTarget, true)
+			.orThrow('Expected a LayerTarget')
+			.investigate()
+			.getPrimitive();
 		FocusContext.from(this).focus(node);
 		addDisposable(() -> FocusContext.from(this).returnFocus());
 	}

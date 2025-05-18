@@ -46,12 +46,10 @@ class Animated extends Component {
 	}
 
 	function registerAnimation(first:Bool = false) {
-		switch __status {
-			case Disposing | Disposed: return;
-			default:
-		}
+		var view = investigate();
+		if (!view.isMounted()) return;
 
-		var el:Element = getPrimitive();
+		var el:Element = view.getPrimitive();
 		var duration = if (first && !animateInitial) 0 else duration;
 		var keyframes = keyframes();
 

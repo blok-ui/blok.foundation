@@ -1,7 +1,7 @@
 package blok.foundation.collapse;
 
 import blok.foundation.animation.*;
-import blok.*;
+import blok.engine.*;
 
 class CollapseItem extends Component {
 	@:context final collapse:CollapseContext;
@@ -17,7 +17,7 @@ class CollapseItem extends Component {
 			keyframes: keyframes,
 			onFinished: context -> {
 				#if (js && !nodejs)
-				var el:js.html.Element = getPrimitive();
+				var el:js.html.Element = investigate().getPrimitive();
 				switch collapse.status.peek() {
 					case Collapsed: el.style.height = '0';
 					case Expanded: el.style.height = 'auto';
@@ -32,7 +32,7 @@ class CollapseItem extends Component {
 
 private function getHeight(context:View) {
 	#if (js && !nodejs)
-	var el:js.html.Element = context.getPrimitive();
+	var el:js.html.Element = context.firstPrimitive();
 	return el.scrollHeight + 'px';
 	#else
 	return 'auto';

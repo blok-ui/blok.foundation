@@ -1,7 +1,6 @@
 package blok.foundation.carousel;
 
 import blok.html.Html;
-import blok.*;
 
 class CarouselItem extends Component {
 	@:attribute public final position:Int;

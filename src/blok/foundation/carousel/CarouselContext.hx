@@ -1,7 +1,5 @@
 package blok.foundation.carousel;
 
-import blok.Context;
-import blok.Owner;
 import blok.debug.Debug;
 import blok.signal.Signal;
 
