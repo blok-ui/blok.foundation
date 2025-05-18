@@ -24,10 +24,19 @@ class AutomaticPortal extends Component {
 	}
 
 	function createPortalInRoot() {
+		#if (js && !nodejs)
+		var el = js.Browser.document.createDivElement();
+		js.Browser.document.body.prepend(el);
+		addDisposable(() -> el.remove());
+		return el;
+		#else
 		var root = Root.from(this);
 		var container = root.adaptor.createContainerPrimitive();
+		// @todo: this inserts the portal AFTER the root.primitive, which
+		// is not what we want.
 		root.adaptor.siblings(root.primitive).insert(container);
 		addDisposable(() -> root.adaptor.removePrimitive(container));
 		return container;
+		#end
 	}
 }
