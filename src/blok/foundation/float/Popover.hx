@@ -14,8 +14,8 @@ class Popover extends Component {
 			// getTarget: getTarget ?? () -> __slot.host.getOwnPrimitive(),
 			getTarget: getTarget ?? () -> investigate()
 				.findAncestorOfType(PrimitiveView)
-				.as(View)
-				.firstPrimitive(),
+				.map(view -> view.firstPrimitive())
+				.orThrow(),
 			gap: gap,
 			attachment: attachment,
 			child: child
