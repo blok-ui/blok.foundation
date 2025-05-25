@@ -1,5 +1,7 @@
 package ex;
 
+import blok.foundation.animation.Keyframes;
+import blok.foundation.layer.LayerContext;
 import blok.*;
 import blok.foundation.dropdown.*;
 import blok.html.*;
@@ -12,19 +14,21 @@ class DropdownExample extends Component {
 	function render() {
 		return Html.div({},
 			Dropdown.node({
+				showAnimation: new Keyframes('dropdown:show', _ -> [
+					{opacity: 0, transform: 'translateY(-10px)'},
+					{opacity: 1, transform: 'translateY(0)'}
+				]),
+				hideAnimation: new Keyframes('dropdown:hide', _ -> [
+					{opacity: 1, transform: 'translateY(0)'},
+					{opacity: 0, transform: 'translateY(-10px)'}
+				]),
+				transitionSpeed: 70,
 				gap: 10,
-				toggle: dropdown -> Button.node({
-					action: e -> {
-						e.preventDefault();
-						e.stopPropagation();
-						dropdown.toggle();
-					},
-					label: dropdown.status.map(status -> switch status {
-						case Open: 'Close Dropdown';
-						case Closed: 'Open Dropdown';
-					})
+				toggle: toggle -> Button.node({
+					action: e -> toggle(),
+					label: 'Dropdown'
 				}),
-				child: _ -> Panel.node({
+				child: Panel.node({
 					styles: ClassName.ofArray([
 						Background.color('white', 0),
 						Sizing.width('min', '50px'),
@@ -76,7 +80,7 @@ class ExampleDropdownItem extends Component {
 					// Note: Something like this is required to
 					// auto-close the dropdown when an option is
 					// selected.
-					DropdownContext.from(this).close();
+					LayerContext.from(this).hide();
 					onClick(e);
 				},
 				href: '#'

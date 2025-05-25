@@ -2,6 +2,9 @@ package blok.foundation.float;
 
 import blok.*;
 
+/**
+	Wrap the given Child in a Popover.
+**/
 function inPopover(child:Child, attachment:PositionedAttachment, ?options:{
 	?getTarget:() -> Dynamic,
 	?gap:Int

@@ -1,39 +1,13 @@
 package blok.foundation.dropdown;
 
-import blok.engine.ComposableView;
-import blok.foundation.float.*;
+import blok.foundation.layer.LayerContext;
 import blok.foundation.core.*;
-import blok.*;
 
-/**
-	This is the popover that is rendered when the Dropdown is 
-	activated. It will be displayed relative to the closest 
-	DropdownToggle based on the provided `gap` and `attachment`.
-**/
-class DropdownPopover extends Component {
-	@:attribute final onHide:() -> Void;
-	@:attribute final gap:Int;
-	@:attribute final attachment:PositionedAttachment;
+class DropdownContainer extends Component {
 	@:children @:attribute final child:Child;
 
-	function render() {
-		return Popover.node({
-			// @todo: This has always been awkward, and now it's even more so.
-			// Rethink the way we're doing this?
-			getTarget: () -> {
-				investigate()
-					.findAncestorComponent(Dropdown)
-					.orThrow('No Dropdown')
-					.investigate()
-					.findComponent(DropdownToggle, true)
-					.orThrow('No dropdown toggle')
-					.investigate()
-					.getPrimitive();
-			},
-			gap: gap,
-			attachment: attachment,
-			child: child
-		});
+	public function render():Child {
+		return child;
 	}
 
 	#if (js && !nodejs)
@@ -57,7 +31,7 @@ class DropdownPopover extends Component {
 	function hide(e:js.html.Event) {
 		e.stopPropagation();
 		e.preventDefault();
-		onHide();
+		LayerContext.from(this).hide();
 	}
 
 	function getNextFocusedChild(offset:Int):Maybe<Component> {

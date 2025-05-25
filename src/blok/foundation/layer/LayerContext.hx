@@ -28,5 +28,9 @@ class LayerContext implements Context {
 		statusSignal.set(Showing);
 	}
 
+	public function toggle() {
+		statusSignal.update(status -> status == Showing ? Hiding : Showing);
+	}
+
 	public function dispose() {}
 }

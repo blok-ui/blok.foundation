@@ -5,16 +5,18 @@ import blok.html.Html;
 import blok.signal.*;
 import blok.*;
 
+using blok.foundation.core.DomTools;
 using Lambda;
 
 class CarouselViewport extends Component {
 	@:attribute final className:String = null;
-	@:attribute final duration:Int = 200;
 	@:attribute final dragClamp:Int = 50;
+	@:attribute final duration:Int = 200;
 	@:children @:attribute final children:Children;
 
 	#if (js && !nodejs)
 	final controller = new js.html.AbortController();
+	var localController:Maybe<js.html.AbortController> = None;
 
 	var startDrag:Float = -1;
 	var previousDrag:Float = 0;
@@ -37,7 +39,6 @@ class CarouselViewport extends Component {
 				var check = mouse?.buttons == 1 && mouse?.button == 0;
 				check;
 			case touch:
-				// @todo: not sure if the following is enough
 				touch.touches.length == 1;
 		}
 	}
@@ -54,16 +55,25 @@ class CarouselViewport extends Component {
 	function onDragStart(e:js.html.Event) {
 		if (!isValidInteraction(e)) return;
 
+		var el:js.html.Element = investigate().getPrimitive();
+		var local = switch localController {
+			case Some(value):
+				value.abort();
+				new js.html.AbortController();
+			case None:
+				new js.html.AbortController();
+		}
+
+		localController = Some(local);
+
 		e.preventDefault();
 		startDrag = getInteractionPosition(e);
 		previousDrag = startDrag;
 
-		// @todo: The Haxe API seems incomplete and does not have a `signal` option
-		// here, hence the `cast`.
-		js.Browser.window.addEventListener('mousemove', onDragUpdate, cast {signal: controller.signal});
-		js.Browser.window.addEventListener('mouseup', onDragEnd, cast {signal: controller.signal});
-		js.Browser.window.addEventListener('touchmove', onDragUpdate, cast {signal: controller.signal});
-		js.Browser.window.addEventListener('touchend', onDragEnd, cast {signal: controller.signal});
+		el.addControlledEventListener('mousemove', onDragUpdate, local);
+		el.addControlledEventListener('mouseup', onDragEnd, local);
+		el.addControlledEventListener('touchmove', onDragUpdate, local);
+		el.addControlledEventListener('touchend', onDragEnd, local);
 	}
 
 	function onDragUpdate(e:js.html.Event) {
@@ -91,10 +101,12 @@ class CarouselViewport extends Component {
 		if (!investigate().isMounted()) return;
 		e.preventDefault();
 
-		js.Browser.window.removeEventListener('mousemove', onDragUpdate);
-		js.Browser.window.removeEventListener('mouseup', onDragEnd);
-		js.Browser.window.removeEventListener('touchmove', onDragUpdate);
-		js.Browser.window.removeEventListener('touchend', onDragEnd);
+		switch localController {
+			case Some(local):
+				local.abort();
+				localController = None;
+			case None:
+		}
 
 		var endDrag = getInteractionPosition(e);
 		var context = CarouselContext.from(this);
@@ -145,7 +157,10 @@ class CarouselViewport extends Component {
 
 		window.addEventListener('resize', resetViewportTransform, cast {signal: controller.signal});
 
-		addDisposable(() -> controller.abort());
+		addDisposable(() -> {
+			controller.abort();
+			localController.inspect(controller -> controller.abort());
+		});
 	}
 	#else
 	function getOffset(_:Int) {
@@ -183,7 +198,7 @@ class CarouselViewport extends Component {
 			#end
 			animateInitial: false,
 			repeatCurrentAnimation: true,
-			// @todo: Duration should be based off the width of the screen.
+			// @todo: Develop the APIs needed to let us change this based on viewport size.
 			duration: duration,
 			child: Html.div({
 				style: 'display:flex;height:100%;width:100%;transform:translate3d(-${currentOffset}px, 0px, 0px)'

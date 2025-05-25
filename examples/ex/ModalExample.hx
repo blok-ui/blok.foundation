@@ -41,30 +41,39 @@ class Modal extends Component {
 	@:attribute final hideOnEscape:Bool = true;
 
 	public function render():Child {
+		// This is the recipe for a Modal: a Layer
+		// inside a Portal.
 		return AutomaticPortal.wrap(Layer.node({
-			className: Breeze.compose(
-				Flex.display(),
-				Flex.alignItems('center'),
-				Flex.justify('center'),
-				Layout.layer(2),
-				Background.color('rgba(0,0,0,0.5)')
-			),
 			hideOnEscape: hideOnEscape,
 			onHide: onHide,
-			child: Html.div({
+			child: LayerShade.node({
+				takeFocus: true,
 				className: Breeze.compose(
-					Background.color('white', 0),
-					Sizing.width('250px'),
-					Border.radius(2),
-					Border.color('black', 0),
-					Border.width(.5),
-					Spacing.pad(4)
+					Flex.display(),
+					Flex.alignItems('center'),
+					Flex.justify('center'),
+					Layout.layer(2),
+					Background.color('rgba(0,0,0,0.5)')
 				),
-				onClick: e -> e.stopPropagation(),
-				ariaModal: 'true',
-				tabIndex: -1,
-				role: 'dialog'
-			}).child(children)
-		})).lockScroll();
+				child: Html.div({
+					className: Breeze.compose(
+						Background.color('white', 0),
+						Sizing.width('250px'),
+						Border.radius(2),
+						Border.color('black', 0),
+						Border.width(.5),
+						Spacing.pad(4)
+					),
+					onClick: e -> e.stopPropagation(),
+					// The following three properties must be set for this div to
+					// be focusable:
+					ariaModal: 'true',
+					tabIndex: -1,
+					role: 'dialog'
+				}).child(children)
+			})
+		})) // Use the `lockScroll` modifier to lock scrolling on the body
+			// while the modal is active:
+			.lockScroll();
 	}
 }

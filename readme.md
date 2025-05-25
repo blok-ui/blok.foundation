@@ -1,6 +1,5 @@
-Blok Foundation
-===============
+# Blok Foundation
 
-Simple components for HTML targets.
+Simple, unstyled components for Blok.
 
-> Coming soon.
+> More coming soon.
